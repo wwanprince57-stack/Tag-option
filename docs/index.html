@@ -4,272 +4,212 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TagOption</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f3f4f6;color:#111827}
-header{background:#111827;color:white;text-align:center;padding:18px}
-.container{max-width:500px;margin:20px auto;padding:15px}
-.card{background:white;padding:22px;border-radius:15px;margin-bottom:15px;box-shadow:0 3px 12px #ccc}
-input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #ccc;border-radius:8px}
-button{width:100%;padding:13px;margin-top:9px;border:0;border-radius:8px;color:white;font-weight:bold}
-.blue{background:#2563eb}.green{background:#16a34a}.red{background:#dc2626}
-.dark{background:#111827}.gray{background:#6b7280}
-.hidden{display:none}.message{text-align:center;font-weight:bold}
-.balance{background:#eef2ff;padding:18px;text-align:center;border-radius:12px;margin:15px 0}
-.balance h2{font-size:28px}
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.menu button{margin:0}
-.small{font-size:13px;color:#6b7280}
-.history{padding:10px 0;border-bottom:1px solid #eee}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f3f4f6;
+    color:#111827;
+}
+
+header{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:18px;
+}
+
+header h1{margin:0 0 5px}
+header p{margin:0}
+
+.container{
+    max-width:520px;
+    margin:20px auto;
+    padding:15px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    margin-bottom:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+input,select{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:1px solid #d1d5db;
+    border-radius:9px;
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    margin-top:9px;
+    border:0;
+    border-radius:9px;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.blue{background:#2563eb}
+.green{background:#16a34a}
+.red{background:#dc2626}
+.dark{background:#111827}
+.gray{background:#6b7280}
+
+.hidden{display:none}
+
+.message{
+    text-align:center;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+.small{
+    color:#6b7280;
+    font-size:13px;
+}
+
+.balance{
+    background:#eef2ff;
+    padding:18px;
+    border-radius:12px;
+    text-align:center;
+    margin:15px 0;
+}
+
+.balance h2{
+    font-size:28px;
+    margin:8px 0 0;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.menu button{
+    margin:0;
+}
+
+.history-item{
+    padding:11px 0;
+    border-bottom:1px solid #eee;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>TagOption</h1>
-<p>Simple Trading Platform</p>
+    <h1>TagOption</h1>
+    <p>Simple Trading Platform</p>
 </header>
 
 <div class="container">
 
-<div id="login" class="card">
-<h2>LOGIN</h2>
-<input id="loginEmail" type="email" placeholder="Email">
-<input id="loginPassword" type="password" placeholder="Password">
-<button class="blue" onclick="login()">LOGIN</button>
-<button class="dark" onclick="showSignup()">CREATE ACCOUNT</button>
-<p id="loginMessage" class="message"></p>
-</div>
+    <!-- LOGIN -->
+    <section id="loginPage" class="card">
+        <h2>LOGIN</h2>
 
-<div id="signup" class="card hidden">
-<h2>CREATE ACCOUNT</h2>
-<input id="name" placeholder="Full Name">
-<input id="signupEmail" type="email" placeholder="Email">
-<input id="signupPassword" type="password" placeholder="Strong Password">
+        <input
+            id="loginEmail"
+            type="email"
+            placeholder="Email"
+        >
 
-<p class="small">
-Password: 8+ characters, uppercase, lowercase, number and symbol.
-</p>
+        <input
+            id="loginPassword"
+            type="password"
+            placeholder="Password"
+        >
 
-<button class="blue" onclick="createAccount()">CREATE ACCOUNT</button>
-<button class="gray" onclick="showLogin()">BACK TO LOGIN</button>
-<p id="signupMessage" class="message"></p>
-</div>
+        <button id="loginBtn" class="blue">
+            LOGIN
+        </button>
 
-<div id="dashboard" class="hidden">
+        <button id="goSignupBtn" class="dark">
+            CREATE ACCOUNT
+        </button>
 
-<div class="card">
-<h2 id="welcome"></h2>
+        <p id="loginMessage" class="message"></p>
+    </section>
 
-<div class="balance">
-Available Balance
-<h2 id="balance">KSh 0.00</h2>
-</div>
 
-<div class="menu">
-<button class="green" onclick="showPanel('deposit')">DEPOSIT</button>
-<button class="red" onclick="showPanel('withdraw')">WITHDRAW</button>
-<button class="blue" onclick="showPanel('trade')">TRADE</button>
-<button class="dark" onclick="showPanel('history')">HISTORY</button>
-</div>
+    <!-- SIGN UP -->
+    <section id="signupPage" class="card hidden">
+        <h2>CREATE ACCOUNT</h2>
 
-<button class="blue" onclick="showPanel('profile')">PROFILE</button>
-<button class="gray" onclick="logout()">LOGOUT</button>
-</div>
+        <input
+            id="signupName"
+            type="text"
+            placeholder="Full Name"
+        >
 
-<div id="deposit" class="card hidden">
-<h3>DEPOSIT</h3>
-<input id="depositAmount" type="number" placeholder="Amount (KSh)">
-<button class="green" onclick="deposit()">DEPOSIT</button>
-<p id="depositMessage" class="message"></p>
-<p class="small">Demo only — no real money is transferred.</p>
-<button class="gray" onclick="closePanels()">BACK</button>
-</div>
+        <input
+            id="signupEmail"
+            type="email"
+            placeholder="Email"
+        >
 
-<div id="withdraw" class="card hidden">
-<h3>WITHDRAW</h3>
-<input id="withdrawAmount" type="number" placeholder="Amount (KSh)">
-<input id="phone" placeholder="M-PESA phone number">
-<button class="red" onclick="withdraw()">WITHDRAW</button>
-<p id="withdrawMessage" class="message"></p>
-<p class="small">Demo only — no real money is transferred.</p>
-<button class="gray" onclick="closePanels()">BACK</button>
-</div>
+        <input
+            id="signupPassword"
+            type="password"
+            placeholder="Strong Password"
+        >
 
-<div id="trade" class="card hidden">
-<h3>TRADE</h3>
-<select id="asset">
-<option>Volatility 100</option>
-<option>Volatility 75</option>
-<option>Gold</option>
-<option>EUR/USD</option>
-<option>BTC/USD</option>
-</select>
-<input id="stake" type="number" placeholder="Enter stake">
-<button class="green" onclick="makeTrade('BUY')">BUY</button>
-<button class="red" onclick="makeTrade('SELL')">SELL</button>
-<p id="tradeMessage" class="message"></p>
-<button class="gray" onclick="closePanels()">BACK</button>
-</div>
+        <p class="small">
+            Password must contain at least 8 characters,
+            uppercase, lowercase, number and symbol.
+        </p>
 
-<div id="history" class="card hidden">
-<h3>TRADE HISTORY</h3>
-<div id="historyList">No trades yet.</div>
-<button class="gray" onclick="closePanels()">BACK</button>
-</div>
+        <button id="signupBtn" class="blue">
+            CREATE ACCOUNT
+        </button>
 
-<div id="profile" class="card hidden">
-<h3>PROFILE</h3>
-<p><b>Name:</b> <span id="profileName"></span></p>
-<p><b>Email:</b> <span id="profileEmail"></span></p>
-<button class="gray" onclick="closePanels()">BACK</button>
-</div>
+        <button id="backLoginBtn" class="gray">
+            BACK TO LOGIN
+        </button>
 
-</div>
-</div>
+        <p id="signupMessage" class="message"></p>
+    </section>
 
-<script>
-let balance=Number(localStorage.getItem("tagBalance"))||0;
-let trades=JSON.parse(localStorage.getItem("tagTrades")||"[]");
 
-function showSignup(){
-login.classList.add("hidden");
-signup.classList.remove("hidden");
-}
+    <!-- DASHBOARD -->
+    <section id="dashboardPage" class="hidden">
 
-function showLogin(){
-signup.classList.add("hidden");
-login.classList.remove("hidden");
-}
+        <div class="card">
 
-function createAccount(){
-let n=name.value.trim(),e=signupEmail.value.trim(),p=signupPassword.value;
+            <h2 id="welcomeText">Welcome</h2>
 
-if(!/^[A-Za-z ]{2,50}$/.test(n)){
-signupMessage.innerText="Enter a valid name.";
-return;
-}
+            <div class="balance">
+                <div>Available Balance</div>
+                <h2 id="balanceText">KSh 0.00</h2>
+            </div>
 
-if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){
-signupMessage.innerText="Enter a valid email.";
-return;
-}
+            <div class="menu">
 
-if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(p)){
-signupMessage.innerText="Password must have 8+ chars, uppercase, lowercase, number and symbol.";
-return;
-}
+                <button id="depositBtn" class="green">
+                    DEPOSIT
+                </button>
 
-localStorage.setItem("tagName",n);
-localStorage.setItem("tagEmail",e);
-localStorage.setItem("tagPassword",p);
+                <button id="withdrawBtn" class="red">
+                    WITHDRAW
+                </button>
 
-signupMessage.innerText="Account created successfully!";
+                <button id="tradeBtn" class="blue">
+                    TRADE
+                </button>
 
-setTimeout(showLogin,1500);
-}
-
-function login(){
-if(loginEmail.value.trim()===localStorage.getItem("tagEmail") &&
-loginPassword.value===localStorage.getItem("tagPassword")){
-
-login.classList.add("hidden");
-dashboard.classList.remove("hidden");
-welcome.innerText="Welcome, "+localStorage.getItem("tagName");
-updateBalance();
-
-}else{
-loginMessage.innerText="Email or password is incorrect.";
-}
-}
-
-function logout(){
-dashboard.classList.add("hidden");
-login.classList.remove("hidden");
-closePanels();
-}
-
-function updateBalance(){
-balanceEl=document.getElementById("balance");
-balanceEl.innerText="KSh "+balance.toFixed(2);
-localStorage.setItem("tagBalance",balance);
-}
-
-function closePanels(){
-["deposit","withdraw","trade","history","profile"].forEach(x=>{
-document.getElementById(x).classList.add("hidden");
-});
-}
-
-function showPanel(x){
-closePanels();
-document.getElementById(x).classList.remove("hidden");
-}
-
-function deposit(){
-let a=Number(depositAmount.value);
-if(a<=0){depositMessage.innerText="Enter a valid amount.";return;}
-balance+=a;updateBalance();
-depositMessage.innerText="Demo deposit added: KSh "+a.toFixed(2);
-}
-
-function withdraw(){
-let a=Number(withdrawAmount.value);
-if(a<=0||!phone.value.trim()){
-withdrawMessage.innerText="Enter amount and phone number.";
-return;
-}
-if(a>balance){
-withdrawMessage.innerText="Insufficient demo balance.";
-return;
-}
-balance-=a;updateBalance();
-withdrawMessage.innerText="Demo withdrawal requested: KSh "+a.toFixed(2);
-}
-
-function makeTrade(type){
-let a=Number(stake.value);
-if(a<=0){tradeMessage.innerText="Enter a valid stake.";return;}
-if(a>balance){tradeMessage.innerText="Insufficient demo balance.";return;}
-
-balance-=a;updateBalance();
-
-trades.unshift({
-type:type,
-asset:asset.value,
-amount:a,
-time:new Date().toLocaleString()
-});
-
-localStorage.setItem("tagTrades",JSON.stringify(trades));
-tradeMessage.innerText=type+" order created successfully.";
-showHistoryList();
-}
-
-function showHistoryList(){
-if(!trades.length){
-historyList.innerHTML="No trades yet.";
-return;
-}
-
-historyList.innerHTML=trades.map(t=>`
-<div class="history">
-<b>${t.type}</b> — ${t.asset}<br>
-<span class="small">Stake: KSh ${t.amount} — ${t.time}</span>
-</div>`).join("");
-}
-
-document.getElementById("history").addEventListener("click",showHistoryList);
-
-function openProfile(){
-profileName.innerText=localStorage.getItem("tagName")||"";
-profileEmail.innerText=localStorage.getItem("tagEmail")||"";
-}
-
-document.querySelector("#profile button").onclick=closePanels;
-
-</script>
-
-</body>
-</html>
+                <button id="historyBtn" class="dark">
+                   
