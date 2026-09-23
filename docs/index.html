@@ -3,14 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TagOption</title>
 
 <style>
-
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
 margin:0;
@@ -46,13 +42,9 @@ border-radius:16px;
 box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
-.hidden{
-display:none;
-}
+.hidden{display:none}
 
-h2,h3{
-margin-top:0;
-}
+h2,h3{margin-top:0}
 
 input,select{
 width:100%;
@@ -80,25 +72,11 @@ color:white;
 cursor:pointer;
 }
 
-.blue{
-background:#2563eb;
-}
-
-.green{
-background:#16a34a;
-}
-
-.red{
-background:#dc2626;
-}
-
-.dark{
-background:#111827;
-}
-
-.gray{
-background:#6b7280;
-}
+.blue{background:#2563eb}
+.green{background:#16a34a}
+.red{background:#dc2626}
+.dark{background:#111827}
+.gray{background:#6b7280}
 
 .message{
 text-align:center;
@@ -137,11 +115,27 @@ color:#6b7280;
 line-height:1.5;
 }
 
-.success{
-color:#15803d;
+.success{color:#15803d}
+.error{color:#dc2626}
+
+.password-box{
+margin-top:8px;
+padding:12px;
+background:#f9fafb;
+border-radius:10px;
+font-size:14px;
+line-height:1.8;
 }
 
-.error{
+.requirement{
+display:block;
+}
+
+.valid{
+color:#16a34a;
+}
+
+.invalid{
 color:#dc2626;
 }
 
@@ -151,11 +145,8 @@ color:#dc2626;
 <body>
 
 <header>
-
 <h1>TagOption</h1>
-
 <p>Simple Trading Platform</p>
-
 </header>
 
 
@@ -199,7 +190,6 @@ class="message"
 </div>
 
 
-
 <!-- CREATE ACCOUNT -->
 
 <div id="createPage" class="card hidden">
@@ -221,14 +211,50 @@ placeholder="Email"
 <input
 id="createPassword"
 type="password"
-placeholder="Strong Password"
+placeholder="Password"
 >
 
-<p class="small">
-Password must contain at least 8 characters,
-one uppercase letter, one lowercase letter,
-one number and one symbol.
-</p>
+<div class="password-box">
+
+<b>Password requirements</b>
+
+<span
+id="reqLength"
+class="requirement invalid"
+>
+❌ 8 characters minimum
+</span>
+
+<span
+id="reqUpper"
+class="requirement invalid"
+>
+❌ Uppercase letter (A-Z)
+</span>
+
+<span
+id="reqLower"
+class="requirement invalid"
+>
+❌ Lowercase letter (a-z)
+</span>
+
+<span
+id="reqNumber"
+class="requirement invalid"
+>
+❌ Number (0-9)
+</span>
+
+<span
+id="reqSymbol"
+class="requirement invalid"
+>
+❌ Symbol (! @ # $ %)
+</span>
+
+</div>
+
 
 <button
 id="createAccountButton"
@@ -252,7 +278,6 @@ class="message"
 </div>
 
 
-
 <!-- DASHBOARD -->
 
 <div id="dashboardPage" class="card hidden">
@@ -270,7 +295,6 @@ KSh 0.00
 </h2>
 
 </div>
-
 
 <div class="menu">
 
@@ -304,7 +328,6 @@ HISTORY
 
 </div>
 
-
 <button
 id="profileButton"
 class="blue"
@@ -319,7 +342,6 @@ class="gray"
 LOGOUT
 </button>
 
-
 <div
 id="dashboardPanel"
 class="panel"
@@ -329,11 +351,10 @@ class="panel"
 </div>
 
 
-
 <script>
 
 /* =========================
-   BASIC DATA
+   DATA
 ========================= */
 
 let balance =
@@ -347,27 +368,29 @@ localStorage.getItem("tagoption_trades") || "[]"
 );
 
 
-
 /* =========================
-   PAGE SWITCHING
+   PAGE SWITCH
 ========================= */
 
 function showPage(page){
 
-document.getElementById("loginPage")
+document
+.getElementById("loginPage")
 .classList.add("hidden");
 
-document.getElementById("createPage")
+document
+.getElementById("createPage")
 .classList.add("hidden");
 
-document.getElementById("dashboardPage")
+document
+.getElementById("dashboardPage")
 .classList.add("hidden");
 
-document.getElementById(page)
+document
+.getElementById(page)
 .classList.remove("hidden");
 
 }
-
 
 
 /* =========================
@@ -376,7 +399,8 @@ document.getElementById(page)
 
 function updateBalance(){
 
-document.getElementById("balanceText")
+document
+.getElementById("balanceText")
 .innerText =
 "KSh " + balance.toFixed(2);
 
@@ -388,16 +412,16 @@ balance
 }
 
 
-
 /* =========================
-   OPEN CREATE ACCOUNT
+   CREATE PAGE
 ========================= */
 
 document
 .getElementById("openCreateButton")
 .addEventListener("click",function(){
 
-document.getElementById("createMessage")
+document
+.getElementById("createMessage")
 .innerText="";
 
 showPage("createPage");
@@ -405,22 +429,155 @@ showPage("createPage");
 });
 
 
-
 /* =========================
-   BACK TO LOGIN
+   BACK LOGIN
 ========================= */
 
 document
 .getElementById("backLoginButton")
 .addEventListener("click",function(){
 
-document.getElementById("createMessage")
-.innerText="";
-
 showPage("loginPage");
 
 });
 
+
+/* =========================
+   PASSWORD LIVE CHECK
+========================= */
+
+document
+.getElementById("createPassword")
+.addEventListener("input",function(){
+
+let password=this.value;
+
+
+/* LENGTH */
+
+if(password.length>=8){
+
+document
+.getElementById("reqLength")
+.innerText="✓ 8 characters minimum";
+
+document
+.getElementById("reqLength")
+.className="requirement valid";
+
+}else{
+
+document
+.getElementById("reqLength")
+.innerText="❌ 8 characters minimum";
+
+document
+.getElementById("reqLength")
+.className="requirement invalid";
+
+}
+
+
+/* UPPERCASE */
+
+if(/[A-Z]/.test(password)){
+
+document
+.getElementById("reqUpper")
+.innerText="✓ Uppercase letter (A-Z)";
+
+document
+.getElementById("reqUpper")
+.className="requirement valid";
+
+}else{
+
+document
+.getElementById("reqUpper")
+.innerText="❌ Uppercase letter (A-Z)";
+
+document
+.getElementById("reqUpper")
+.className="requirement invalid";
+
+}
+
+
+/* LOWERCASE */
+
+if(/[a-z]/.test(password)){
+
+document
+.getElementById("reqLower")
+.innerText="✓ Lowercase letter (a-z)";
+
+document
+.getElementById("reqLower")
+.className="requirement valid";
+
+}else{
+
+document
+.getElementById("reqLower")
+.innerText="❌ Lowercase letter (a-z)";
+
+document
+.getElementById("reqLower")
+.className="requirement invalid";
+
+}
+
+
+/* NUMBER */
+
+if(/[0-9]/.test(password)){
+
+document
+.getElementById("reqNumber")
+.innerText="✓ Number (0-9)";
+
+document
+.getElementById("reqNumber")
+.className="requirement valid";
+
+}else{
+
+document
+.getElementById("reqNumber")
+.innerText="❌ Number (0-9)";
+
+document
+.getElementById("reqNumber")
+.className="requirement invalid";
+
+}
+
+
+/* SYMBOL */
+
+if(/[^A-Za-z0-9]/.test(password)){
+
+document
+.getElementById("reqSymbol")
+.innerText="✓ Symbol (! @ # $ %)";
+
+document
+.getElementById("reqSymbol")
+.className="requirement valid";
+
+}else{
+
+document
+.getElementById("reqSymbol")
+.innerText="❌ Symbol (! @ # $ %)";
+
+document
+.getElementById("reqSymbol")
+.className="requirement invalid";
+
+}
+
+});
 
 
 /* =========================
@@ -432,52 +589,72 @@ document
 .addEventListener("click",function(){
 
 let name =
-document.getElementById("fullName")
+document
+.getElementById("fullName")
 .value
 .trim();
 
 let email =
-document.getElementById("createEmail")
+document
+.getElementById("createEmail")
 .value
 .trim();
 
 let password =
-document.getElementById("createPassword")
+document
+.getElementById("createPassword")
 .value;
 
 
+/* NAME */
 
-/* NAME CHECK */
+if(name.length<2){
 
-if(name.length < 2){
-
-document.getElementById("createMessage")
-.innerText =
+document
+.getElementById("createMessage")
+.innerText=
 "Enter your full name.";
 
-document.getElementById("createMessage")
-.className =
-"message error";
-
 return;
 
 }
 
 
-
-/* EMAIL CHECK */
+/* EMAIL */
 
 if(
-email.indexOf("@") === -1 ||
-email.indexOf(".") === -1
+email.indexOf("@")===-1 ||
+email.indexOf(".")===-1
 ){
 
-document.getElementById("createMessage")
-.innerText =
+document
+.getElementById("createMessage")
+.innerText=
 "Enter a valid email.";
 
-document.getElementById("createMessage")
-.className =
+return;
+
+}
+
+
+/* PASSWORD */
+
+if(
+password.length<8 ||
+!/[A-Z]/.test(password) ||
+!/[a-z]/.test(password) ||
+!/[0-9]/.test(password) ||
+!/[^A-Za-z0-9]/.test(password)
+){
+
+document
+.getElementById("createMessage")
+.innerText=
+"Complete all password requirements.";
+
+document
+.getElementById("createMessage")
+.className=
 "message error";
 
 return;
@@ -485,82 +662,7 @@ return;
 }
 
 
-
-/* PASSWORD CHECK */
-
-if(password.length < 8){
-
-document.getElementById("createMessage")
-.innerText =
-"Password must have at least 8 characters.";
-
-document.getElementById("createMessage")
-.className =
-"message error";
-
-return;
-
-}
-
-if(!/[A-Z]/.test(password)){
-
-document.getElementById("createMessage")
-.innerText =
-"Password needs an uppercase letter.";
-
-document.getElementById("createMessage")
-.className =
-"message error";
-
-return;
-
-}
-
-if(!/[a-z]/.test(password)){
-
-document.getElementById("createMessage")
-.innerText =
-"Password needs a lowercase letter.";
-
-document.getElementById("createMessage")
-.className =
-"message error";
-
-return;
-
-}
-
-if(!/[0-9]/.test(password)){
-
-document.getElementById("createMessage")
-.innerText =
-"Password needs a number.";
-
-document.getElementById("createMessage")
-.className =
-"message error";
-
-return;
-
-}
-
-if(!/[^A-Za-z0-9]/.test(password)){
-
-document.getElementById("createMessage")
-.innerText =
-"Password needs a symbol.";
-
-document.getElementById("createMessage")
-.className =
-"message error";
-
-return;
-
-}
-
-
-
-/* SAVE ACCOUNT */
+/* SAVE */
 
 localStorage.setItem(
 "tagoption_name",
@@ -578,601 +680,20 @@ password
 );
 
 
+/* SUCCESS */
 
-/* SUCCESS MESSAGE */
-
-document.getElementById("createMessage")
-.innerText =
+document
+.getElementById("createMessage")
+.innerText=
 "Account created successfully!";
 
-document.getElementById("createMessage")
-.className =
+document
+.getElementById("createMessage")
+.className=
 "message success";
 
-
-
-/* RETURN TO LOGIN */
 
 setTimeout(function(){
 
-document.getElementById("loginEmail")
-.value =
-email;
-
-document.getElementById("loginPassword")
-.value =
-"";
-
-document.getElementById("loginMessage")
-.innerText =
-"Account created. Login now.";
-
-document.getElementById("loginMessage")
-.className =
-"message success";
-
-showPage("loginPage");
-
-},1200);
-
-});
-
-
-
-/* =========================
-   LOGIN
-========================= */
-
 document
-.getElementById("loginButton")
-.addEventListener("click",function(){
-
-let email =
-document.getElementById("loginEmail")
-.value
-.trim();
-
-let password =
-document.getElementById("loginPassword")
-.value;
-
-let savedEmail =
-localStorage.getItem(
-"tagoption_email"
-);
-
-let savedPassword =
-localStorage.getItem(
-"tagoption_password"
-);
-
-
-
-if(
-email === savedEmail &&
-password === savedPassword
-){
-
-let name =
-localStorage.getItem(
-"tagoption_name"
-);
-
-document.getElementById("welcomeText")
-.innerText =
-"Welcome, " + name;
-
-document.getElementById("loginMessage")
-.innerText="";
-
-updateBalance();
-
-showPage("dashboardPage");
-
-}else{
-
-document.getElementById("loginMessage")
-.innerText =
-"Email or password is incorrect.";
-
-document.getElementById("loginMessage")
-.className =
-"message error";
-
-}
-
-});
-
-
-
-/* =========================
-   DEPOSIT
-========================= */
-
-document
-.getElementById("depositButton")
-.addEventListener("click",function(){
-
-document.getElementById("dashboardPanel")
-.innerHTML = `
-
-<h3>DEPOSIT</h3>
-
-<p class="small">
-Demo deposit only. No real money is transferred.
-</p>
-
-<input
-id="depositAmount"
-type="number"
-placeholder="Amount in KSh"
->
-
-<button
-id="confirmDeposit"
-class="green"
->
-ADD DEMO BALANCE
-</button>
-
-<p
-id="depositMessage"
-class="message"
-></p>
-
-`;
-
-document
-.getElementById("confirmDeposit")
-.addEventListener("click",function(){
-
-let amount =
-Number(
-document.getElementById("depositAmount")
-.value
-);
-
-if(amount <= 0){
-
-document.getElementById("depositMessage")
-.innerText =
-"Enter a valid amount.";
-
-return;
-
-}
-
-balance += amount;
-
-updateBalance();
-
-document.getElementById("depositMessage")
-.innerText =
-"Demo balance added: KSh " +
-amount.toFixed(2);
-
-});
-
-});
-
-
-
-/* =========================
-   WITHDRAW
-========================= */
-
-document
-.getElementById("withdrawButton")
-.addEventListener("click",function(){
-
-document.getElementById("dashboardPanel")
-.innerHTML = `
-
-<h3>WITHDRAW</h3>
-
-<p class="small">
-Demo withdrawal only. No real M-PESA transaction is made.
-</p>
-
-<input
-id="withdrawAmount"
-type="number"
-placeholder="Amount in KSh"
->
-
-<input
-id="withdrawPhone"
-type="tel"
-placeholder="M-PESA phone number"
->
-
-<button
-id="confirmWithdraw"
-class="red"
->
-REQUEST DEMO WITHDRAWAL
-</button>
-
-<p
-id="withdrawMessage"
-class="message"
-></p>
-
-`;
-
-document
-.getElementById("confirmWithdraw")
-.addEventListener("click",function(){
-
-let amount =
-Number(
-document.getElementById("withdrawAmount")
-.value
-);
-
-let phone =
-document.getElementById("withdrawPhone")
-.value
-.trim();
-
-if(amount <= 0){
-
-document.getElementById("withdrawMessage")
-.innerText =
-"Enter a valid amount.";
-
-return;
-
-}
-
-if(phone === ""){
-
-document.getElementById("withdrawMessage")
-.innerText =
-"Enter your phone number.";
-
-return;
-
-}
-
-if(amount > balance){
-
-document.getElementById("withdrawMessage")
-.innerText =
-"Insufficient demo balance.";
-
-return;
-
-}
-
-balance -= amount;
-
-updateBalance();
-
-document.getElementById("withdrawMessage")
-.innerText =
-"Demo withdrawal request created.";
-
-});
-
-});
-
-
-
-/* =========================
-   TRADE
-========================= */
-
-document
-.getElementById("tradeButton")
-.addEventListener("click",function(){
-
-document.getElementById("dashboardPanel")
-.innerHTML = `
-
-<h3>TRADE</h3>
-
-<select id="assetSelect">
-
-<option>
-Volatility 100
-</option>
-
-<option>
-Volatility 75
-</option>
-
-<option>
-Gold
-</option>
-
-<option>
-EUR/USD
-</option>
-
-<option>
-BTC/USD
-</option>
-
-</select>
-
-<input
-id="tradeStake"
-type="number"
-placeholder="Enter stake in KSh"
->
-
-<button
-id="buyButton"
-class="green"
->
-BUY
-</button>
-
-<button
-id="sellButton"
-class="red"
->
-SELL
-</button>
-
-<p
-id="tradeMessage"
-class="message"
-></p>
-
-`;
-
-
-
-function createTrade(type){
-
-let amount =
-Number(
-document.getElementById("tradeStake")
-.value
-);
-
-let asset =
-document.getElementById("assetSelect")
-.value;
-
-
-
-if(amount <= 0){
-
-document.getElementById("tradeMessage")
-.innerText =
-"Enter a valid stake.";
-
-return;
-
-}
-
-
-
-if(amount > balance){
-
-document.getElementById("tradeMessage")
-.innerText =
-"Insufficient demo balance.";
-
-return;
-
-}
-
-
-
-balance -= amount;
-
-updateBalance();
-
-
-
-let trade = {
-
-type:type,
-
-asset:asset,
-
-amount:amount,
-
-time:new Date().toLocaleString()
-
-};
-
-
-
-trades.unshift(trade);
-
-
-
-localStorage.setItem(
-"tagoption_trades",
-JSON.stringify(trades)
-);
-
-
-
-document.getElementById("tradeMessage")
-.innerText =
-type +
-" demo order created successfully.";
-
-}
-
-
-
-document
-.getElementById("buyButton")
-.addEventListener("click",function(){
-
-createTrade("BUY");
-
-});
-
-
-
-document
-.getElementById("sellButton")
-.addEventListener("click",function(){
-
-createTrade("SELL");
-
-});
-
-});
-
-
-
-/* =========================
-   HISTORY
-========================= */
-
-document
-.getElementById("historyButton")
-.addEventListener("click",function(){
-
-let html =
-"<h3>HISTORY</h3>";
-
-
-
-if(trades.length === 0){
-
-html +=
-"<p>No trades yet.</p>";
-
-}else{
-
-for(let i=0;i<trades.length;i++){
-
-let trade =
-trades[i];
-
-html += `
-
-<div style="
-padding:12px;
-margin:8px 0;
-background:#f3f4f6;
-border-radius:8px;
-">
-
-<b>${trade.type}</b>
-
-<br>
-
-Asset:
-${trade.asset}
-
-<br>
-
-Stake:
-KSh ${Number(trade.amount).toFixed(2)}
-
-<br>
-
-Time:
-${trade.time}
-
-</div>
-
-`;
-
-}
-
-}
-
-
-
-document
-.getElementById("dashboardPanel")
-.innerHTML =
-html;
-
-});
-
-
-
-/* =========================
-   PROFILE
-========================= */
-
-document
-.getElementById("profileButton")
-.addEventListener("click",function(){
-
-let name =
-localStorage.getItem(
-"tagoption_name"
-);
-
-let email =
-localStorage.getItem(
-"tagoption_email"
-);
-
-
-
-document
-.getElementById("dashboardPanel")
-.innerHTML = `
-
-<h3>PROFILE</h3>
-
-<p>
-<b>Name:</b>
-${name || ""}
-</p>
-
-<p>
-<b>Email:</b>
-${email || ""}
-</p>
-
-<p class="small">
-This is a demo profile.
-</p>
-
-`;
-
-});
-
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-document
-.getElementById("logoutButton")
-.addEventListener("click",function(){
-
-document.getElementById("loginEmail")
-.value="";
-
-document.getElementById("loginPassword")
-.value="";
-
-document.getElementById("dashboardPanel")
-.innerHTML="";
-
-showPage("loginPage");
-
-});
-
-
-
-/* =========================
-   START APP
-========================= */
-
-updateBalance();
-
-showPage("loginPage");
-
-</script>
-
-</body>
-</html>
+.getElementById
