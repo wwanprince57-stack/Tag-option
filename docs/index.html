@@ -1,263 +1,1177 @@
  <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>TagOption</title>
+
 <style>
-body{font-family:Arial;background:#f3f4f6;margin:0}
-header{background:#111827;color:white;text-align:center;padding:20px}
-.card{background:white;max-width:450px;margin:20px auto;padding:20px;border-radius:15px}
-input,select,button{width:100%;padding:13px;margin:7px 0;box-sizing:border-box}
-button{border:0;border-radius:8px;color:white;font-weight:bold}
-.blue{background:#2563eb}.green{background:#16a34a}.red{background:#dc2626}.dark{background:#111827}.gray{background:#6b7280}
-.hide{display:none}.msg{text-align:center;font-weight:bold}
-.balance{text-align:center;background:#eef2ff;padding:15px;border-radius:10px}
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f2f4f7;
+color:#111827;
+}
+
+header{
+background:#111827;
+color:white;
+padding:22px;
+text-align:center;
+}
+
+header h1{
+margin:0;
+font-size:30px;
+}
+
+header p{
+margin:7px 0 0;
+opacity:.8;
+}
+
+.card{
+width:92%;
+max-width:450px;
+background:white;
+margin:25px auto;
+padding:22px;
+border-radius:16px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.hidden{
+display:none;
+}
+
+h2,h3{
+margin-top:0;
+}
+
+input,select{
+width:100%;
+padding:14px;
+margin:7px 0;
+border:1px solid #d1d5db;
+border-radius:9px;
+font-size:16px;
+outline:none;
+}
+
+input:focus,select:focus{
+border-color:#2563eb;
+}
+
+button{
+width:100%;
+padding:14px;
+margin:7px 0;
+border:0;
+border-radius:9px;
+font-size:16px;
+font-weight:bold;
+color:white;
+cursor:pointer;
+}
+
+.blue{
+background:#2563eb;
+}
+
+.green{
+background:#16a34a;
+}
+
+.red{
+background:#dc2626;
+}
+
+.dark{
+background:#111827;
+}
+
+.gray{
+background:#6b7280;
+}
+
+.message{
+text-align:center;
+font-weight:bold;
+margin-top:12px;
+}
+
+.balance{
+background:#eef2ff;
+padding:18px;
+border-radius:12px;
+text-align:center;
+margin-bottom:18px;
+}
+
+.balance h2{
+font-size:25px;
+margin:8px 0 0;
+}
+
+.menu{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+}
+
+.panel{
+margin-top:18px;
+padding-top:10px;
+border-top:1px solid #ddd;
+}
+
+.small{
+font-size:13px;
+color:#6b7280;
+line-height:1.5;
+}
+
+.success{
+color:#15803d;
+}
+
+.error{
+color:#dc2626;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
+
 <h1>TagOption</h1>
+
 <p>Simple Trading Platform</p>
+
 </header>
 
-<div id="login" class="card">
+
+<!-- LOGIN -->
+
+<div id="loginPage" class="card">
+
 <h2>LOGIN</h2>
-<input id="le" type="email" placeholder="Email">
-<input id="lp" type="password" placeholder="Password">
-<button id="loginBtn" class="blue">LOGIN</button>
-<button id="createBtn" class="dark">CREATE ACCOUNT</button>
-<p id="lm" class="msg"></p>
+
+<input
+id="loginEmail"
+type="email"
+placeholder="Email"
+>
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+>
+
+<button
+id="loginButton"
+class="blue"
+>
+LOGIN
+</button>
+
+<button
+id="openCreateButton"
+class="dark"
+>
+CREATE ACCOUNT
+</button>
+
+<p
+id="loginMessage"
+class="message"
+></p>
+
 </div>
 
-<div id="signup" class="card hide">
+
+
+<!-- CREATE ACCOUNT -->
+
+<div id="createPage" class="card hidden">
+
 <h2>CREATE ACCOUNT</h2>
-<input id="sn" placeholder="Full Name">
-<input id="se" type="email" placeholder="Email">
-<input id="sp" type="password" placeholder="Strong Password">
-<p>8+ characters, uppercase, lowercase, number and symbol.</p>
-<button id="saveBtn" class="blue">CREATE ACCOUNT</button>
-<button id="backBtn" class="gray">BACK TO LOGIN</button>
-<p id="sm" class="msg"></p>
+
+<input
+id="fullName"
+type="text"
+placeholder="Full Name"
+>
+
+<input
+id="createEmail"
+type="email"
+placeholder="Email"
+>
+
+<input
+id="createPassword"
+type="password"
+placeholder="Strong Password"
+>
+
+<p class="small">
+Password must contain at least 8 characters,
+one uppercase letter, one lowercase letter,
+one number and one symbol.
+</p>
+
+<button
+id="createAccountButton"
+class="blue"
+>
+CREATE ACCOUNT
+</button>
+
+<button
+id="backLoginButton"
+class="gray"
+>
+BACK TO LOGIN
+</button>
+
+<p
+id="createMessage"
+class="message"
+></p>
+
 </div>
 
-<div id="dash" class="card hide">
-<h2 id="welcome"></h2>
+
+
+<!-- DASHBOARD -->
+
+<div id="dashboardPage" class="card hidden">
+
+<h2 id="welcomeText">
+Welcome
+</h2>
 
 <div class="balance">
+
 Available Balance
-<h2 id="bal">KSh 0.00</h2>
+
+<h2 id="balanceText">
+KSh 0.00
+</h2>
+
 </div>
+
 
 <div class="menu">
-<button id="depBtn" class="green">DEPOSIT</button>
-<button id="withBtn" class="red">WITHDRAW</button>
-<button id="tradeBtn" class="blue">TRADE</button>
-<button id="histBtn" class="dark">HISTORY</button>
+
+<button
+id="depositButton"
+class="green"
+>
+DEPOSIT
+</button>
+
+<button
+id="withdrawButton"
+class="red"
+>
+WITHDRAW
+</button>
+
+<button
+id="tradeButton"
+class="blue"
+>
+TRADE
+</button>
+
+<button
+id="historyButton"
+class="dark"
+>
+HISTORY
+</button>
+
 </div>
 
-<button id="profBtn" class="blue">PROFILE</button>
-<button id="logoutBtn" class="gray">LOGOUT</button>
 
-<div id="panel"></div>
+<button
+id="profileButton"
+class="blue"
+>
+PROFILE
+</button>
+
+<button
+id="logoutButton"
+class="gray"
+>
+LOGOUT
+</button>
+
+
+<div
+id="dashboardPanel"
+class="panel"
+>
 </div>
+
+</div>
+
+
 
 <script>
-const $=id=>document.getElementById(id);
 
-let balance=Number(localStorage.getItem("balance")||0);
-let trades=JSON.parse(localStorage.getItem("trades")||"[]");
+/* =========================
+   BASIC DATA
+========================= */
 
-function show(id){
-$("login").classList.add("hide");
-$("signup").classList.add("hide");
-$("dash").classList.add("hide");
-$(id).classList.remove("hide");
+let balance =
+Number(
+localStorage.getItem("tagoption_balance") || "0"
+);
+
+let trades =
+JSON.parse(
+localStorage.getItem("tagoption_trades") || "[]"
+);
+
+
+
+/* =========================
+   PAGE SWITCHING
+========================= */
+
+function showPage(page){
+
+document.getElementById("loginPage")
+.classList.add("hidden");
+
+document.getElementById("createPage")
+.classList.add("hidden");
+
+document.getElementById("dashboardPage")
+.classList.add("hidden");
+
+document.getElementById(page)
+.classList.remove("hidden");
+
 }
 
-$("createBtn").onclick=function(){
-show("signup");
-$("sm").innerText="";
-};
 
-$("backBtn").onclick=function(){
-show("login");
-};
 
-$("saveBtn").onclick=function(){
+/* =========================
+   BALANCE
+========================= */
 
-let name=$("sn").value.trim();
-let email=$("se").value.trim();
-let pass=$("sp").value;
+function updateBalance(){
 
-if(!/^[A-Za-z ]{2,50}$/.test(name)){
-$("sm").innerText="Enter a valid name.";
+document.getElementById("balanceText")
+.innerText =
+"KSh " + balance.toFixed(2);
+
+localStorage.setItem(
+"tagoption_balance",
+balance
+);
+
+}
+
+
+
+/* =========================
+   OPEN CREATE ACCOUNT
+========================= */
+
+document
+.getElementById("openCreateButton")
+.addEventListener("click",function(){
+
+document.getElementById("createMessage")
+.innerText="";
+
+showPage("createPage");
+
+});
+
+
+
+/* =========================
+   BACK TO LOGIN
+========================= */
+
+document
+.getElementById("backLoginButton")
+.addEventListener("click",function(){
+
+document.getElementById("createMessage")
+.innerText="";
+
+showPage("loginPage");
+
+});
+
+
+
+/* =========================
+   CREATE ACCOUNT
+========================= */
+
+document
+.getElementById("createAccountButton")
+.addEventListener("click",function(){
+
+let name =
+document.getElementById("fullName")
+.value
+.trim();
+
+let email =
+document.getElementById("createEmail")
+.value
+.trim();
+
+let password =
+document.getElementById("createPassword")
+.value;
+
+
+
+/* NAME CHECK */
+
+if(name.length < 2){
+
+document.getElementById("createMessage")
+.innerText =
+"Enter your full name.";
+
+document.getElementById("createMessage")
+.className =
+"message error";
+
 return;
+
 }
 
-if(!/^[^ ]+@[^ ]+\.[^ ]+$/.test(email)){
-$("sm").innerText="Enter a valid email.";
-return;
-}
 
-if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(pass)){
-$("sm").innerText="Password must be 8+ chars with uppercase, lowercase, number and symbol.";
-return;
-}
 
-localStorage.setItem("name",name);
-localStorage.setItem("email",email);
-localStorage.setItem("pass",pass);
-
-$("sm").innerText="Account created successfully!";
-
-setTimeout(function(){
-show("login");
-$("lm").innerText="Account created. Login now.";
-},1500);
-};
-
-$("loginBtn").onclick=function(){
+/* EMAIL CHECK */
 
 if(
-$("le").value.trim()===localStorage.getItem("email") &&
-$("lp").value===localStorage.getItem("pass")
+email.indexOf("@") === -1 ||
+email.indexOf(".") === -1
 ){
 
-show("dash");
-$("welcome").innerText="Welcome, "+localStorage.getItem("name");
-update();
+document.getElementById("createMessage")
+.innerText =
+"Enter a valid email.";
+
+document.getElementById("createMessage")
+.className =
+"message error";
+
+return;
+
+}
+
+
+
+/* PASSWORD CHECK */
+
+if(password.length < 8){
+
+document.getElementById("createMessage")
+.innerText =
+"Password must have at least 8 characters.";
+
+document.getElementById("createMessage")
+.className =
+"message error";
+
+return;
+
+}
+
+if(!/[A-Z]/.test(password)){
+
+document.getElementById("createMessage")
+.innerText =
+"Password needs an uppercase letter.";
+
+document.getElementById("createMessage")
+.className =
+"message error";
+
+return;
+
+}
+
+if(!/[a-z]/.test(password)){
+
+document.getElementById("createMessage")
+.innerText =
+"Password needs a lowercase letter.";
+
+document.getElementById("createMessage")
+.className =
+"message error";
+
+return;
+
+}
+
+if(!/[0-9]/.test(password)){
+
+document.getElementById("createMessage")
+.innerText =
+"Password needs a number.";
+
+document.getElementById("createMessage")
+.className =
+"message error";
+
+return;
+
+}
+
+if(!/[^A-Za-z0-9]/.test(password)){
+
+document.getElementById("createMessage")
+.innerText =
+"Password needs a symbol.";
+
+document.getElementById("createMessage")
+.className =
+"message error";
+
+return;
+
+}
+
+
+
+/* SAVE ACCOUNT */
+
+localStorage.setItem(
+"tagoption_name",
+name
+);
+
+localStorage.setItem(
+"tagoption_email",
+email
+);
+
+localStorage.setItem(
+"tagoption_password",
+password
+);
+
+
+
+/* SUCCESS MESSAGE */
+
+document.getElementById("createMessage")
+.innerText =
+"Account created successfully!";
+
+document.getElementById("createMessage")
+.className =
+"message success";
+
+
+
+/* RETURN TO LOGIN */
+
+setTimeout(function(){
+
+document.getElementById("loginEmail")
+.value =
+email;
+
+document.getElementById("loginPassword")
+.value =
+"";
+
+document.getElementById("loginMessage")
+.innerText =
+"Account created. Login now.";
+
+document.getElementById("loginMessage")
+.className =
+"message success";
+
+showPage("loginPage");
+
+},1200);
+
+});
+
+
+
+/* =========================
+   LOGIN
+========================= */
+
+document
+.getElementById("loginButton")
+.addEventListener("click",function(){
+
+let email =
+document.getElementById("loginEmail")
+.value
+.trim();
+
+let password =
+document.getElementById("loginPassword")
+.value;
+
+let savedEmail =
+localStorage.getItem(
+"tagoption_email"
+);
+
+let savedPassword =
+localStorage.getItem(
+"tagoption_password"
+);
+
+
+
+if(
+email === savedEmail &&
+password === savedPassword
+){
+
+let name =
+localStorage.getItem(
+"tagoption_name"
+);
+
+document.getElementById("welcomeText")
+.innerText =
+"Welcome, " + name;
+
+document.getElementById("loginMessage")
+.innerText="";
+
+updateBalance();
+
+showPage("dashboardPage");
 
 }else{
 
-$("lm").innerText="Email or password is incorrect.";
+document.getElementById("loginMessage")
+.innerText =
+"Email or password is incorrect.";
+
+document.getElementById("loginMessage")
+.className =
+"message error";
 
 }
-};
 
-function update(){
-$("bal").innerText="KSh "+balance.toFixed(2);
-localStorage.setItem("balance",balance);
-}
+});
 
-$("depBtn").onclick=function(){
 
-$("panel").innerHTML=`
+
+/* =========================
+   DEPOSIT
+========================= */
+
+document
+.getElementById("depositButton")
+.addEventListener("click",function(){
+
+document.getElementById("dashboardPanel")
+.innerHTML = `
+
 <h3>DEPOSIT</h3>
-<input id="da" type="number" placeholder="Amount (KSh)">
-<button id="dc" class="green">DEPOSIT</button>
-<p id="dm"></p>
+
+<p class="small">
+Demo deposit only. No real money is transferred.
+</p>
+
+<input
+id="depositAmount"
+type="number"
+placeholder="Amount in KSh"
+>
+
+<button
+id="confirmDeposit"
+class="green"
+>
+ADD DEMO BALANCE
+</button>
+
+<p
+id="depositMessage"
+class="message"
+></p>
+
 `;
 
-$("dc").onclick=function(){
-let a=Number($("da").value);
-if(a<=0){$("dm").innerText="Enter a valid amount.";return;}
-balance+=a;
-update();
-$("dm").innerText="Demo deposit added: KSh "+a.toFixed(2);
-};
-};
+document
+.getElementById("confirmDeposit")
+.addEventListener("click",function(){
 
-$("withBtn").onclick=function(){
+let amount =
+Number(
+document.getElementById("depositAmount")
+.value
+);
 
-$("panel").innerHTML=`
+if(amount <= 0){
+
+document.getElementById("depositMessage")
+.innerText =
+"Enter a valid amount.";
+
+return;
+
+}
+
+balance += amount;
+
+updateBalance();
+
+document.getElementById("depositMessage")
+.innerText =
+"Demo balance added: KSh " +
+amount.toFixed(2);
+
+});
+
+});
+
+
+
+/* =========================
+   WITHDRAW
+========================= */
+
+document
+.getElementById("withdrawButton")
+.addEventListener("click",function(){
+
+document.getElementById("dashboardPanel")
+.innerHTML = `
+
 <h3>WITHDRAW</h3>
-<input id="wa" type="number" placeholder="Amount (KSh)">
-<input id="wp" placeholder="M-PESA phone number">
-<button id="wc" class="red">WITHDRAW</button>
-<p id="wm"></p>
+
+<p class="small">
+Demo withdrawal only. No real M-PESA transaction is made.
+</p>
+
+<input
+id="withdrawAmount"
+type="number"
+placeholder="Amount in KSh"
+>
+
+<input
+id="withdrawPhone"
+type="tel"
+placeholder="M-PESA phone number"
+>
+
+<button
+id="confirmWithdraw"
+class="red"
+>
+REQUEST DEMO WITHDRAWAL
+</button>
+
+<p
+id="withdrawMessage"
+class="message"
+></p>
+
 `;
 
-$("wc").onclick=function(){
-let a=Number($("wa").value);
-if(a<=0||!$("wp").value.trim()){
-$("wm").innerText="Enter amount and phone.";
-return;
-}
-if(a>balance){
-$("wm").innerText="Insufficient demo balance.";
-return;
-}
-balance-=a;
-update();
-$("wm").innerText="Demo withdrawal requested.";
-};
-};
+document
+.getElementById("confirmWithdraw")
+.addEventListener("click",function(){
 
-$("tradeBtn").onclick=function(){
+let amount =
+Number(
+document.getElementById("withdrawAmount")
+.value
+);
 
-$("panel").innerHTML=`
+let phone =
+document.getElementById("withdrawPhone")
+.value
+.trim();
+
+if(amount <= 0){
+
+document.getElementById("withdrawMessage")
+.innerText =
+"Enter a valid amount.";
+
+return;
+
+}
+
+if(phone === ""){
+
+document.getElementById("withdrawMessage")
+.innerText =
+"Enter your phone number.";
+
+return;
+
+}
+
+if(amount > balance){
+
+document.getElementById("withdrawMessage")
+.innerText =
+"Insufficient demo balance.";
+
+return;
+
+}
+
+balance -= amount;
+
+updateBalance();
+
+document.getElementById("withdrawMessage")
+.innerText =
+"Demo withdrawal request created.";
+
+});
+
+});
+
+
+
+/* =========================
+   TRADE
+========================= */
+
+document
+.getElementById("tradeButton")
+.addEventListener("click",function(){
+
+document.getElementById("dashboardPanel")
+.innerHTML = `
+
 <h3>TRADE</h3>
-<select id="asset">
-<option>Volatility 100</option>
-<option>Volatility 75</option>
-<option>Gold</option>
-<option>EUR/USD</option>
-<option>BTC/USD</option>
+
+<select id="assetSelect">
+
+<option>
+Volatility 100
+</option>
+
+<option>
+Volatility 75
+</option>
+
+<option>
+Gold
+</option>
+
+<option>
+EUR/USD
+</option>
+
+<option>
+BTC/USD
+</option>
+
 </select>
-<input id="stake" type="number" placeholder="Enter stake">
-<button id="buy" class="green">BUY</button>
-<button id="sell" class="red">SELL</button>
-<p id="tm"></p>
+
+<input
+id="tradeStake"
+type="number"
+placeholder="Enter stake in KSh"
+>
+
+<button
+id="buyButton"
+class="green"
+>
+BUY
+</button>
+
+<button
+id="sellButton"
+class="red"
+>
+SELL
+</button>
+
+<p
+id="tradeMessage"
+class="message"
+></p>
+
 `;
 
-function trade(type){
-let a=Number($("stake").value);
-if(a<=0){$("tm").innerText="Enter a valid stake.";return;}
-if(a>balance){$("tm").innerText="Insufficient demo balance.";return;}
 
-balance-=a;
-update();
 
-trades.unshift({
+function createTrade(type){
+
+let amount =
+Number(
+document.getElementById("tradeStake")
+.value
+);
+
+let asset =
+document.getElementById("assetSelect")
+.value;
+
+
+
+if(amount <= 0){
+
+document.getElementById("tradeMessage")
+.innerText =
+"Enter a valid stake.";
+
+return;
+
+}
+
+
+
+if(amount > balance){
+
+document.getElementById("tradeMessage")
+.innerText =
+"Insufficient demo balance.";
+
+return;
+
+}
+
+
+
+balance -= amount;
+
+updateBalance();
+
+
+
+let trade = {
+
 type:type,
-asset:$("asset").value,
-amount:a,
+
+asset:asset,
+
+amount:amount,
+
 time:new Date().toLocaleString()
-});
 
-localStorage.setItem("trades",JSON.stringify(trades));
-
-$("tm").innerText=type+" order created successfully.";
-}
-
-$("buy").onclick=()=>trade("BUY");
-$("sell").onclick=()=>trade("SELL");
 };
 
-$("histBtn").onclick=function(){
 
-let html="<h3>HISTORY</h3>";
 
-if(!trades.length){
-html+="<p>No trades yet.</p>";
+trades.unshift(trade);
+
+
+
+localStorage.setItem(
+"tagoption_trades",
+JSON.stringify(trades)
+);
+
+
+
+document.getElementById("tradeMessage")
+.innerText =
+type +
+" demo order created successfully.";
+
+}
+
+
+
+document
+.getElementById("buyButton")
+.addEventListener("click",function(){
+
+createTrade("BUY");
+
+});
+
+
+
+document
+.getElementById("sellButton")
+.addEventListener("click",function(){
+
+createTrade("SELL");
+
+});
+
+});
+
+
+
+/* =========================
+   HISTORY
+========================= */
+
+document
+.getElementById("historyButton")
+.addEventListener("click",function(){
+
+let html =
+"<h3>HISTORY</h3>";
+
+
+
+if(trades.length === 0){
+
+html +=
+"<p>No trades yet.</p>";
+
 }else{
-trades.forEach(t=>{
-html+=`<p><b>${t.type}</b> — ${t.asset}<br>Stake: KSh ${t.amount}<br>${t.time}</p>`;
-});
+
+for(let i=0;i<trades.length;i++){
+
+let trade =
+trades[i];
+
+html += `
+
+<div style="
+padding:12px;
+margin:8px 0;
+background:#f3f4f6;
+border-radius:8px;
+">
+
+<b>${trade.type}</b>
+
+<br>
+
+Asset:
+${trade.asset}
+
+<br>
+
+Stake:
+KSh ${Number(trade.amount).toFixed(2)}
+
+<br>
+
+Time:
+${trade.time}
+
+</div>
+
+`;
+
 }
 
-$("panel").innerHTML=html;
-};
+}
 
-$("profBtn").onclick=function(){
-$("panel").innerHTML=
-"<h3>PROFILE</h3>"+
-"<p><b>Name:</b> "+localStorage.getItem("name")+"</p>"+
-"<p><b>Email:</b> "+localStorage.getItem("email")+"</p>";
-};
 
-$("logoutBtn").onclick=function(){
-show("login");
-$("panel").innerHTML="";
-$("le").value="";
-$("lp").value="";
-};
 
-update();
+document
+.getElementById("dashboardPanel")
+.innerHTML =
+html;
+
+});
+
+
+
+/* =========================
+   PROFILE
+========================= */
+
+document
+.getElementById("profileButton")
+.addEventListener("click",function(){
+
+let name =
+localStorage.getItem(
+"tagoption_name"
+);
+
+let email =
+localStorage.getItem(
+"tagoption_email"
+);
+
+
+
+document
+.getElementById("dashboardPanel")
+.innerHTML = `
+
+<h3>PROFILE</h3>
+
+<p>
+<b>Name:</b>
+${name || ""}
+</p>
+
+<p>
+<b>Email:</b>
+${email || ""}
+</p>
+
+<p class="small">
+This is a demo profile.
+</p>
+
+`;
+
+});
+
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document
+.getElementById("logoutButton")
+.addEventListener("click",function(){
+
+document.getElementById("loginEmail")
+.value="";
+
+document.getElementById("loginPassword")
+.value="";
+
+document.getElementById("dashboardPanel")
+.innerHTML="";
+
+showPage("loginPage");
+
+});
+
+
+
+/* =========================
+   START APP
+========================= */
+
+updateBalance();
+
+showPage("loginPage");
+
 </script>
 
 </body>
