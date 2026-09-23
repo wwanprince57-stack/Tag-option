@@ -2,654 +2,690 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>TagOption</title>
 
 <style>
-*{
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
-}
-
+*{box-sizing:border-box}
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f7fb;
-color:#111827;
-padding-bottom:82px;
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#07111f;
+ color:#fff;
 }
-
-button,input,select{
-font:inherit;
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+.container{
+ max-width:480px;
+ margin:auto;
+ min-height:100vh;
+ background:#0b1728;
 }
-
-button{
-cursor:pointer;
-border:0;
+.header{
+ padding:22px 18px;
+ background:linear-gradient(135deg,#102b4c,#07111f);
 }
-
-.hidden{
-display:none!important;
+.logo{font-size:27px;font-weight:800}
+.logo span{color:#20d68b}
+.small{color:#91a4b9;font-size:14px}
+.page{padding:18px}
+.card{
+ background:#122238;
+ border:1px solid #203750;
+ border-radius:18px;
+ padding:18px;
+ margin-bottom:15px;
 }
-
-/* LOGIN */
-
-.auth{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-background:#111827;
-}
-
-.auth-card{
-width:100%;
-max-width:420px;
-background:#fff;
-border-radius:24px;
-padding:28px 22px;
-box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-
-.logo{
-text-align:center;
-margin-bottom:25px;
-}
-
-.logo-icon{
-width:64px;
-height:64px;
-border-radius:20px;
-background:#2563eb;
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-font-weight:bold;
-margin:auto;
-}
-
-.logo h1{
-margin:12px 0 5px;
-}
-
-.logo p{
-margin:0;
-color:#6b7280;
-}
-
-.field{
-margin:12px 0;
-}
-
-.field label{
-display:block;
-font-size:13px;
-font-weight:bold;
-margin-bottom:6px;
-color:#374151;
-}
-
+h2{margin-top:0}
 input,select{
-width:100%;
-padding:14px;
-border:1px solid #d1d5db;
-border-radius:12px;
-background:#fff;
-outline:none;
+ width:100%;
+ padding:14px;
+ margin:7px 0 12px;
+ border-radius:12px;
+ border:1px solid #29435f;
+ background:#091625;
+ color:#fff;
+ outline:none;
 }
-
-input:focus,select:focus{
-border-color:#2563eb;
+input:focus,select:focus{border-color:#20d68b}
+.btn{
+ width:100%;
+ padding:14px;
+ border-radius:12px;
+ margin:6px 0;
+ font-weight:700;
 }
-
-.password{
-position:relative;
+.green{background:#20d68b;color:#04150e}
+.blue{background:#2878ff;color:#fff}
+.red{background:#ff4d61;color:#fff}
+.dark{background:#1b3048;color:#fff}
+.link{
+ background:none;
+ color:#20d68b;
+ width:100%;
+ padding:10px;
 }
-
-.password input{
-padding-right:50px;
+.hidden{display:none!important}
+.balance{
+ font-size:32px;
+ font-weight:800;
+ margin:8px 0;
 }
-
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+.price{
+ font-size:27px;
+ font-weight:800;
+}
+.badge{
+ display:inline-block;
+ padding:5px 9px;
+ border-radius:8px;
+ background:#183b34;
+ color:#20d68b;
+ font-size:12px;
+}
+.req{font-size:13px;margin:5px 0;color:#ff6575}
+.req.ok{color:#20d68b}
+.passwordBox{position:relative}
+.passwordBox input{padding-right:50px}
 .eye{
-position:absolute;
-right:5px;
-top:5px;
-width:42px;
-height:42px;
-background:transparent;
-font-size:19px;
+ position:absolute;
+ right:10px;
+ top:15px;
+ background:none;
+ color:#9db0c4;
 }
-
-.primary{
-width:100%;
-padding:15px;
-border-radius:12px;
-background:#2563eb;
-color:#fff;
-font-weight:bold;
-margin-top:8px;
-}
-
-.secondary{
-width:100%;
-padding:14px;
-border-radius:12px;
-background:#eef2ff;
-color:#2563eb;
-font-weight:bold;
-margin-top:8px;
-}
-
-.message{
-text-align:center;
-font-size:14px;
-font-weight:bold;
-margin-top:12px;
-}
-
-.success{color:#16a34a}
-.error{color:#dc2626}
-
-.requirements{
-background:#f8fafc;
-border-radius:12px;
-padding:10px 12px;
-font-size:12px;
-line-height:1.8;
-}
-
-.req.bad{color:#dc2626}
-.req.good{color:#16a34a}
-
-
-/* APP */
-
-.app{
-max-width:520px;
-margin:auto;
-min-height:100vh;
-}
-
-.top{
-padding:20px 18px 15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.top small{
-color:#6b7280;
-}
-
-.top h2{
-margin:4px 0 0;
-font-size:22px;
-}
-
-.avatar{
-width:42px;
-height:42px;
-border-radius:50%;
-background:#2563eb;
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:bold;
-}
-
-.content{
-padding:0 16px;
-}
-
-
-/* BALANCE */
-
-.balance-card{
-background:#111827;
-color:#fff;
-border-radius:22px;
-padding:22px;
-position:relative;
-overflow:hidden;
-}
-
-.balance-card small{
-opacity:.7;
-}
-
-.balance-card h1{
-font-size:31px;
-margin:8px 0 18px;
-}
-
-.balance-actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.balance-actions button{
-padding:12px;
-border-radius:11px;
-font-weight:bold;
-}
-
-.deposit-btn{
-background:#fff;
-color:#111827;
-}
-
-.withdraw-btn{
-background:#374151;
-color:#fff;
-}
-
-
-/* SECTION */
-
-.section-title{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:23px 2px 10px;
-}
-
-.section-title h3{
-margin:0;
-font-size:17px;
-}
-
-.section-title span{
-font-size:12px;
-color:#6b7280;
-}
-
-
-/* MARKET */
-
-.market{
-background:#fff;
-border-radius:18px;
-padding:16px;
-border:1px solid #e5e7eb;
-}
-
-.market-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.market-name{
-font-weight:bold;
-}
-
-.market-price{
-font-size:22px;
-font-weight:bold;
-margin-top:5px;
-}
-
-.up{
-color:#16a34a;
-font-size:12px;
-}
-
-
-/* MINI CHART */
-
-.chart{
-height:110px;
-margin-top:12px;
-display:flex;
-align-items:flex-end;
-gap:4px;
-overflow:hidden;
-}
-
-.bar{
-width:8px;
-background:#2563eb;
-border-radius:5px 5px 2px 2px;
-opacity:.8;
-}
-
-
-/* QUICK */
-
-.quick{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.quick-card{
-background:#fff;
-border:1px solid #e5e7eb;
-border-radius:17px;
-padding:16px;
-}
-
-.quick-icon{
-font-size:24px;
-}
-
-.quick-card b{
-display:block;
-margin-top:10px;
-}
-
-.quick-card small{
-color:#6b7280;
-}
-
-
-/* TRADE */
-
-.trade-card{
-background:#fff;
-border-radius:20px;
-padding:17px;
-border:1px solid #e5e7eb;
-}
-
-.price-large{
-background:#111827;
-color:#fff;
-padding:18px;
-border-radius:15px;
-text-align:center;
-margin-bottom:14px;
-}
-
-.price-large small{
-opacity:.65;
-}
-
-.price-large strong{
-display:block;
-font-size:31px;
-margin-top:5px;
-}
-
-.trade-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:12px;
-}
-
-.buy{
-background:#16a34a;
-color:#fff;
-padding:16px;
-border-radius:13px;
-font-weight:bold;
-}
-
-.sell{
-background:#dc2626;
-color:#fff;
-padding:16px;
-border-radius:13px;
-font-weight:bold;
-}
-
-.demo-note{
-text-align:center;
-font-size:11px;
-color:#6b7280;
-margin-top:13px;
-}
-
-
-/* HISTORY */
-
-.history-item{
-background:#fff;
-border:1px solid #e5e7eb;
-border-radius:16px;
-padding:15px;
-margin-bottom:10px;
-}
-
-.history-row{
-display:flex;
-justify-content:space-between;
-margin:5px 0;
-font-size:13px;
-}
-
-.status{
-font-size:11px;
-font-weight:bold;
-color:#2563eb;
-}
-
-
-/* PROFILE */
-
-.profile-card{
-background:#fff;
-border:1px solid #e5e7eb;
-border-radius:20px;
-padding:20px;
-}
-
-.profile-avatar{
-width:70px;
-height:70px;
-border-radius:50%;
-background:#2563eb;
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-font-weight:bold;
-margin-bottom:15px;
-}
-
-.profile-line{
-padding:13px 0;
-border-bottom:1px solid #eee;
-}
-
-
-/* BOTTOM NAV */
-
-.bottom{
-position:fixed;
-bottom:0;
-left:50%;
-transform:translateX(-50%);
-width:100%;
-max-width:520px;
-height:72px;
-background:#fff;
-border-top:1px solid #e5e7eb;
-display:grid;
-grid-template-columns:repeat(4,1fr);
-z-index:20;
-}
-
 .nav{
-background:#fff;
-color:#6b7280;
-font-size:11px;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:4px;
+ position:sticky;
+ bottom:0;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ background:#091523;
+ border-top:1px solid #203750;
 }
-
-.nav-icon{
-font-size:20px;
+.nav button{
+ background:none;
+ color:#91a4b9;
+ padding:13px 4px;
+ font-size:12px;
 }
-
-.nav.active{
-color:#2563eb;
-font-weight:bold;
+.nav button.active{color:#20d68b}
+.msg{
+ padding:11px;
+ border-radius:10px;
+ background:#1a2d42;
+ margin-bottom:12px;
+ font-size:14px;
 }
-
-
-/* PANEL */
-
-.panel{
-margin-top:18px;
+.tradeBtns{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
 }
-
-.close{
-background:#eef2f2;
-color:#374151;
-padding:10px;
-border-radius:10px;
-width:100%;
-margin-top:10px;
+.tradeBtns button{padding:18px;border-radius:14px;font-weight:800}
+.historyItem{
+ padding:12px 0;
+ border-bottom:1px solid #203750;
 }
 </style>
 </head>
 
 <body>
+<div class="container">
 
+<!-- AUTH -->
+<section id="auth">
+ <div class="header">
+  <div class="logo">Tag<span>Option</span></div>
+  <div class="small">Demo Trading Platform</div>
+ </div>
 
-<!-- ================= LOGIN ================= -->
+ <div class="page">
 
-<div id="loginScreen" class="auth">
+  <div id="loginBox" class="card">
+   <h2>Login</h2>
+   <div id="loginMsg"></div>
 
-<div class="auth-card">
+   <input id="loginEmail" type="email" placeholder="Email">
 
-<div class="logo">
-<div class="logo-icon">T</div>
-<h1>TagOption</h1>
-<p>Simple Trading Platform</p>
+   <div class="passwordBox">
+    <input id="loginPassword" type="password" placeholder="Password">
+    <button class="eye" type="button" onclick="togglePass('loginPassword',this)">👁️</button>
+   </div>
+
+   <button class="btn green" type="button" onclick="login()">LOGIN</button>
+   <button class="link" type="button" onclick="showRegister()">CREATE ACCOUNT</button>
+  </div>
+
+  <div id="registerBox" class="card hidden">
+   <h2>Create Account</h2>
+   <div id="registerMsg"></div>
+
+   <input id="regName" type="text" placeholder="Full Name">
+   <input id="regEmail" type="email" placeholder="Email">
+
+   <div class="passwordBox">
+    <input id="regPassword" type="password" placeholder="Password" oninput="checkPassword()">
+    <button class="eye" type="button" onclick="togglePass('regPassword',this)">👁️</button>
+   </div>
+
+   <div id="r1" class="req">❌ 8 characters minimum</div>
+   <div id="r2" class="req">❌ Uppercase letter (A-Z)</div>
+   <div id="r3" class="req">❌ Lowercase letter (a-z)</div>
+   <div id="r4" class="req">❌ Number (0-9)</div>
+   <div id="r5" class="req">❌ Symbol (! @ # $ %)</div>
+
+   <button class="btn green" type="button" onclick="register()">CREATE ACCOUNT</button>
+   <button class="link" type="button" onclick="showLogin()">BACK TO LOGIN</button>
+  </div>
+
+ </div>
+</section>
+
+<!-- APP -->
+<section id="app" class="hidden">
+
+ <div class="header">
+  <div class="logo">Tag<span>Option</span></div>
+  <div class="small" id="welcome"></div>
+ </div>
+
+ <!-- HOME -->
+ <div id="homePage" class="page">
+  <div class="card">
+   <div class="small">Available Balance</div>
+   <div class="balance" id="balance">KSh 0.00</div>
+   <span class="badge">DEMO ACCOUNT</span>
+  </div>
+
+  <div class="grid">
+   <button class="btn green" onclick="showPage('depositPage')">DEPOSIT</button>
+   <button class="btn red" onclick="showPage('withdrawPage')">WITHDRAW</button>
+  </div>
+
+  <div class="card">
+   <div class="small">Demo Market</div>
+   <h2>Volatility Index</h2>
+   <div class="price" id="marketPrice">100.00</div>
+   <div class="small">Live demo price</div>
+  </div>
+
+  <div class="card">
+   <h3>Quick Trade</h3>
+   <button class="btn blue" onclick="showPage('tradePage')">OPEN TRADE</button>
+  </div>
+ </div>
+
+ <!-- DEPOSIT -->
+ <div id="depositPage" class="page hidden">
+  <div class="card">
+   <h2>Deposit</h2>
+   <div class="msg">Demo only — no real money is moved.</div>
+   <input id="depositAmount" type="number" min="1" placeholder="Amount (KSh)">
+   <button class="btn green" onclick="deposit()">DEPOSIT</button>
+   <button class="btn dark" onclick="showPage('homePage')">BACK</button>
+  </div>
+ </div>
+
+ <!-- WITHDRAW -->
+ <div id="withdrawPage" class="page hidden">
+  <div class="card">
+   <h2>Withdraw</h2>
+   <div class="msg">Demo only — no real money is moved.</div>
+   <div class="small">Balance</div>
+   <h2 id="withdrawBalance">KSh 0.00</h2>
+   <input id="withdrawAmount" type="number" min="1" placeholder="Amount (KSh)">
+   <button class="btn red" onclick="withdraw()">WITHDRAW</button>
+   <button class="btn dark" onclick="showPage('homePage')">BACK</button>
+  </div>
+ </div>
+
+ <!-- TRADE -->
+ <div id="tradePage" class="page hidden">
+  <div class="card">
+   <h2>Trade</h2>
+   <div class="small">Asset</div>
+   <select id="asset">
+    <option>Volatility Index 100</option>
+    <option>Volatility Index 75</option>
+    <option>Volatility Index 50</option>
+   </select>
+
+   <div class="small">Current Price</div>
+   <div class="price" id="tradePrice">100.00</div>
+
+   <div class="small">Duration</div>
+   <select id="duration">
+    <option value="1">1 Minute</option>
+    <option value="2">2 Minutes</option>
+    <option value="5">5 Minutes</option>
+   </select>
+
+   <div class="small">Stake</div>
+   <input id="stake" type="number" min="1" placeholder="Stake KSh">
+
+   <div class="tradeBtns">
+    <button class="green" onclick="placeTrade('CALL')">▲ CALL / BUY</button>
+    <button class="red" onclick="placeTrade('PUT')">▼ PUT / SELL</button>
+   </div>
+  </div>
+
+  <div class="card">
+   <h3>Potential Result</h3>
+   <div id="potential">Enter stake to calculate</div>
+  </div>
+ </div>
+
+ <!-- HISTORY -->
+ <div id="historyPage" class="page hidden">
+  <div class="card">
+   <h2>Trade History</h2>
+   <div id="historyList">No trades yet.</div>
+  </div>
+ </div>
+
+ <!-- PROFILE -->
+ <div id="profilePage" class="page hidden">
+  <div class="card">
+   <h2>Profile</h2>
+   <p><b>Name:</b> <span id="profileName"></span></p>
+   <p><b>Email:</b> <span id="profileEmail"></span></p>
+   <p><b>Account:</b> Demo</p>
+   <button class="btn red" onclick="logout()">LOGOUT</button>
+  </div>
+ </div>
+
+ <div class="nav">
+  <button onclick="showPage('homePage')" id="navHome">⌂<br>Home</button>
+  <button onclick="showPage('tradePage')" id="navTrade">↕<br>Trade</button>
+  <button onclick="showPage('historyPage')" id="navHistory">☷<br>History</button>
+  <button onclick="showPage('profilePage')" id="navProfile">●<br>Profile</button>
+ </div>
+
+</section>
 </div>
 
-<div class="field">
-<label>Email</label>
-<input id="loginEmail" type="email" placeholder="Enter email">
-</div>
+<script>
+"use strict";
 
-<div class="field">
-<label>Password</label>
+/* ---------- STORAGE ---------- */
 
-<div class="password">
+function getUser(){
+ try{
+  return JSON.parse(localStorage.getItem("tagoption_user") || "null");
+ }catch(e){
+  return null;
+ }
+}
 
-<input id="loginPassword" type="password" placeholder="Enter password">
+function saveUser(user){
+ localStorage.setItem("tagoption_user",JSON.stringify(user));
+}
 
-<button id="loginEye" class="eye" type="button">👁️</button>
+function getBalance(){
+ return Number(localStorage.getItem("tagoption_balance") || "0");
+}
 
-</div>
-</div>
+function setBalance(value){
+ localStorage.setItem("tagoption_balance",String(Number(value)));
+ updateBalance();
+}
 
-<button id="loginBtn" class="primary">
-LOGIN
-</button>
+function getHistory(){
+ try{
+  return JSON.parse(localStorage.getItem("tagoption_history") || "[]");
+ }catch(e){
+  return [];
+ }
+}
 
-<button id="openRegister" class="secondary">
-CREATE ACCOUNT
-</button>
+function saveHistory(data){
+ localStorage.setItem("tagoption_history",JSON.stringify(data));
+}
 
-<p id="loginMsg" class="message"></p>
+/* ---------- AUTH ---------- */
 
-</div>
-</div>
+function showRegister(){
+ document.getElementById("loginBox").classList.add("hidden");
+ document.getElementById("registerBox").classList.remove("hidden");
+ clearMsg();
+}
 
+function showLogin(){
+ document.getElementById("registerBox").classList.add("hidden");
+ document.getElementById("loginBox").classList.remove("hidden");
+ clearMsg();
+}
 
-<!-- ================= REGISTER ================= -->
+function clearMsg(){
+ document.getElementById("loginMsg").innerHTML="";
+ document.getElementById("registerMsg").innerHTML="";
+}
 
-<div id="registerScreen" class="auth hidden">
+function message(id,text){
+ document.getElementById(id).innerHTML='<div class="msg">'+text+'</div>';
+}
 
-<div class="auth-card">
+function validPassword(p){
+ return p.length>=8 &&
+ /[A-Z]/.test(p) &&
+ /[a-z]/.test(p) &&
+ /[0-9]/.test(p) &&
+ /[^A-Za-z0-9]/.test(p);
+}
 
-<div class="logo">
-<div class="logo-icon">T</div>
-<h1>Create Account</h1>
-<p>Join TagOption</p>
-</div>
+function checkPassword(){
+ const p=document.getElementById("regPassword").value;
 
-<div class="field">
-<label>Full Name</label>
-<input id="regName" type="text" placeholder="Full name">
-</div>
+ const tests=[
+  [p.length>=8,"r1","8 characters minimum"],
+  [/[A-Z]/.test(p),"r2","Uppercase letter (A-Z)"],
+  [/[a-z]/.test(p),"r3","Lowercase letter (a-z)"],
+  [/[0-9]/.test(p),"r4","Number (0-9)"],
+  [/[^A-Za-z0-9]/.test(p),"r5","Symbol (! @ # $ %)"]
+ ];
 
-<div class="field">
-<label>Email</label>
-<input id="regEmail" type="email" placeholder="Email">
-</div>
+ tests.forEach(function(t){
+  const el=document.getElementById(t[1]);
+  el.className=t[0]?"req ok":"req";
+  el.textContent=(t[0]?"✓ ":"❌ ")+t[2];
+ });
+}
 
-<div class="field">
-<label>Password</label>
+function register(){
+ const name=document.getElementById("regName").value.trim();
+ const email=document.getElementById("regEmail").value.trim().toLowerCase();
+ const password=document.getElementById("regPassword").value;
 
-<div class="password">
+ if(name.length<2){
+  message("registerMsg","Enter your full name.");
+  return;
+ }
 
-<input id="regPassword" type="password" placeholder="Create password">
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+  message("registerMsg","Enter a valid email.");
+  return;
+ }
 
-<button id="regEye" class="eye" type="button">👁️</button>
+ if(!validPassword(password)){
+  message("registerMsg","Password does not meet all requirements.");
+  return;
+ }
 
-</div>
-</div>
+ saveUser({
+  name:name,
+  email:email,
+  password:password
+ });
 
-<div class="requirements">
+ localStorage.setItem("tagoption_balance","0");
+ localStorage.setItem("tagoption_history","[]");
 
-<b>Password requirements</b>
+ message("registerMsg","Account created successfully. You can now login.");
 
-<div id="req1" class="req bad">❌ 8 characters minimum</div>
-<div id="req2" class="req bad">❌ Uppercase letter</div>
-<div id="req3" class="req bad">❌ Lowercase letter</div>
-<div id="req4" class="req bad">❌ Number</div>
-<div id="req5" class="req bad">❌ Symbol</div>
+ setTimeout(function(){
+  document.getElementById("loginEmail").value=email;
+  showLogin();
+ },700);
+}
 
-</div>
+function login(){
+ const email=document.getElementById("loginEmail").value.trim().toLowerCase();
+ const password=document.getElementById("loginPassword").value;
+ const user=getUser();
 
-<button id="registerBtn" class="primary">
-CREATE ACCOUNT
-</button>
+ if(!user){
+  message("loginMsg","No account found. Click CREATE ACCOUNT first.");
+  return;
+ }
 
-<button id="backLogin" class="secondary">
-BACK TO LOGIN
-</button>
+ if(email!==user.email || password!==user.password){
+  message("loginMsg","Incorrect email or password.");
+  return;
+ }
 
-<p id="registerMsg" class="message"></p>
+ localStorage.setItem("tagoption_logged","yes");
+ openApp();
+}
 
-</div>
-</div>
+function logout(){
+ localStorage.removeItem("tagoption_logged");
+ document.getElementById("app").classList.add("hidden");
+ document.getElementById("auth").classList.remove("hidden");
+ showLogin();
+}
 
+/* ---------- APP ---------- */
 
-<!-- ================= APP ================= -->
+function openApp(){
+ const user=getUser();
 
-<div id="app" class="app hidden">
+ if(!user){
+  logout();
+  return;
+ }
 
-<div class="top">
+ document.getElementById("auth").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
 
-<div>
-<small>Welcome back</small>
-<h2 id="userName">User</h2>
-</div>
+ document.getElementById("welcome").textContent="Welcome, "+user.name;
+ document.getElementById("profileName").textContent=user.name;
+ document.getElementById("profileEmail").textContent=user.email;
 
-<div id="avatar" class="avatar">U</div>
+ updateBalance();
+ renderHistory();
+ showPage("homePage");
+}
 
-</div>
+function showPage(id){
+ const pages=[
+  "homePage",
+  "depositPage",
+  "withdrawPage",
+  "tradePage",
+  "historyPage",
+  "profilePage"
+ ];
 
+ pages.forEach(function(p){
+  document.getElementById(p).classList.add("hidden");
+ });
 
-<div class="content">
+ document.getElementById(id).classList.remove("hidden");
 
+ document.querySelectorAll(".nav button").forEach(function(b){
+  b.classList.remove("active");
+ });
 
-<!-- HOME -->
+ if(id==="homePage")document.getElementById("navHome").classList.add("active");
+ if(id==="tradePage")document.getElementById("navTrade").classList.add("active");
+ if(id==="historyPage")document.getElementById("navHistory").classList.add("active");
+ if(id==="profilePage")document.getElementById("navProfile").classList.add("active");
 
-<div id="homePage">
+ if(id==="withdrawPage"){
+  document.getElementById("withdrawBalance").textContent=
+   "KSh "+getBalance().toFixed(2);
+ }
+}
 
-<div class="balance-card">
+function updateBalance(){
+ const b=getBalance();
+ document.getElementById("balance").textContent="KSh "+b.toFixed(2);
 
-<small>Available Balance</small>
+ const wb=document.getElementById("withdrawBalance");
+ if(wb)wb.textContent="KSh "+b.toFixed(2);
+}
 
-<h1 id="balanceText">KSh 0.00</h1>
+/* ---------- PASSWORD EYE ---------- */
 
-<div class="balance-actions">
+function togglePass(id,btn){
+ const input=document.getElementById(id);
 
-<button id="homeDeposit
+ if(input.type==="password"){
+  input.type="text";
+  btn.textContent="🙈";
+ }else{
+  input.type="password";
+  btn.textContent="👁️";
+ }
+}
+
+/* ---------- DEMO MONEY ---------- */
+
+function deposit(){
+ const amount=Number(document.getElementById("depositAmount").value);
+
+ if(!Number.isFinite(amount) || amount<=0){
+  alert("Enter a valid amount.");
+  return;
+ }
+
+ setBalance(getBalance()+amount);
+ document.getElementById("depositAmount").value="";
+ alert("Demo deposit successful.");
+ showPage("homePage");
+}
+
+function withdraw(){
+ const amount=Number(document.getElementById("withdrawAmount").value);
+
+ if(!Number.isFinite(amount) || amount<=0){
+  alert("Enter a valid amount.");
+  return;
+ }
+
+ if(amount>getBalance()){
+  alert("Insufficient demo balance.");
+  return;
+ }
+
+ setBalance(getBalance()-amount);
+ document.getElementById("withdrawAmount").value="";
+ alert("Demo withdrawal successful.");
+ showPage("homePage");
+}
+
+/* ---------- TRADING ---------- */
+
+function placeTrade(direction){
+ const stake=Number(document.getElementById("stake").value);
+ const duration=document.getElementById("duration").value;
+ const asset=document.getElementById("asset").value;
+
+ if(!Number.isFinite(stake) || stake<=0){
+  alert("Enter stake.");
+  return;
+ }
+
+ if(stake>getBalance()){
+  alert("Insufficient demo balance.");
+  return;
+ }
+
+ const price=Number(document.getElementById("tradePrice").textContent);
+
+ setBalance(getBalance()-stake);
+
+ const result=Math.random()>=0.5 ? "WIN" : "LOSS";
+ const payout=result==="WIN" ? stake*1.8 : 0;
+
+ if(result==="WIN"){
+  setBalance(getBalance()+payout);
+ }
+
+ const trade={
+  asset:asset,
+  direction:direction,
+  stake:stake,
+  duration:duration+" min",
+  price:price,
+  result:result,
+  payout:payout,
+  time:new Date().toLocaleString()
+ };
+
+ const history=getHistory();
+ history.unshift(trade);
+ saveHistory(history);
+
+ renderHistory();
+
+ alert(
+  "Demo trade completed\n"+
+  direction+" • "+result+
+  "\nStake: KSh "+stake.toFixed(2)
+ );
+
+ document.getElementById("stake").value="";
+}
+
+function renderHistory(){
+ const list=document.getElementById("historyList");
+ const history=getHistory();
+
+ if(history.length===0){
+  list.innerHTML="No trades yet.";
+  return;
+ }
+
+ list.innerHTML="";
+
+ history.forEach(function(t){
+  const div=document.createElement("div");
+  div.className="historyItem";
+
+  div.innerHTML=
+   "<b>"+t.direction+" / "+t.asset+"</b><br>"+
+   "<span class='small'>Stake: KSh "+Number(t.stake).toFixed(2)+
+   " • "+t.duration+"</span><br>"+
+   "<span class='small'>"+t.time+"</span><br>"+
+   "<b>"+t.result+"</b>";
+
+  list.appendChild(div);
+ });
+}
+
+/* ---------- DEMO PRICE ---------- */
+
+let price=100;
+
+setInterval(function(){
+ price+=(Math.random()-0.5)*0.8;
+
+ if(price<1)price=1;
+
+ document.getElementById("marketPrice").textContent=price.toFixed(2);
+ document.getElementById("tradePrice").textContent=price.toFixed(2);
+
+ const stake=Number(document.getElementById("stake").value||0);
+
+ if(stake>0){
+  document.getElementById("potential").textContent=
+   "Potential payout: KSh "+(stake*1.8).toFixed(2);
+ }else{
+  document.getElementById("potential").textContent=
+   "Enter stake to calculate";
+ }
+},1000);
+
+/* ---------- START ---------- */
+
+window.addEventListener("load",function(){
+ const logged=localStorage.getItem("tagoption_logged");
+ const user=getUser();
+
+ if(logged==="yes" && user){
+  openApp();
+ }else{
+  document.getElementById("auth").classList.remove("hidden");
+  document.getElementById("app").classList.add("hidden");
+ }
+});
+</script>
+
+</body>
+</html>
