@@ -1,215 +1,264 @@
  <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TagOption</title>
-
 <style>
-*{box-sizing:border-box}
-
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f3f4f6;
-    color:#111827;
-}
-
-header{
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:18px;
-}
-
-header h1{margin:0 0 5px}
-header p{margin:0}
-
-.container{
-    max-width:520px;
-    margin:20px auto;
-    padding:15px;
-}
-
-.card{
-    background:white;
-    padding:22px;
-    border-radius:16px;
-    margin-bottom:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-}
-
-input,select{
-    width:100%;
-    padding:13px;
-    margin:7px 0;
-    border:1px solid #d1d5db;
-    border-radius:9px;
-    font-size:15px;
-}
-
-button{
-    width:100%;
-    padding:13px;
-    margin-top:9px;
-    border:0;
-    border-radius:9px;
-    color:white;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.blue{background:#2563eb}
-.green{background:#16a34a}
-.red{background:#dc2626}
-.dark{background:#111827}
-.gray{background:#6b7280}
-
-.hidden{display:none}
-
-.message{
-    text-align:center;
-    font-weight:bold;
-    margin-top:12px;
-}
-
-.small{
-    color:#6b7280;
-    font-size:13px;
-}
-
-.balance{
-    background:#eef2ff;
-    padding:18px;
-    border-radius:12px;
-    text-align:center;
-    margin:15px 0;
-}
-
-.balance h2{
-    font-size:28px;
-    margin:8px 0 0;
-}
-
-.menu{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.menu button{
-    margin:0;
-}
-
-.history-item{
-    padding:11px 0;
-    border-bottom:1px solid #eee;
-}
+body{font-family:Arial;background:#f3f4f6;margin:0}
+header{background:#111827;color:white;text-align:center;padding:20px}
+.card{background:white;max-width:450px;margin:20px auto;padding:20px;border-radius:15px}
+input,select,button{width:100%;padding:13px;margin:7px 0;box-sizing:border-box}
+button{border:0;border-radius:8px;color:white;font-weight:bold}
+.blue{background:#2563eb}.green{background:#16a34a}.red{background:#dc2626}.dark{background:#111827}.gray{background:#6b7280}
+.hide{display:none}.msg{text-align:center;font-weight:bold}
+.balance{text-align:center;background:#eef2ff;padding:15px;border-radius:10px}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>TagOption</h1>
-    <p>Simple Trading Platform</p>
+<h1>TagOption</h1>
+<p>Simple Trading Platform</p>
 </header>
 
-<div class="container">
+<div id="login" class="card">
+<h2>LOGIN</h2>
+<input id="le" type="email" placeholder="Email">
+<input id="lp" type="password" placeholder="Password">
+<button id="loginBtn" class="blue">LOGIN</button>
+<button id="createBtn" class="dark">CREATE ACCOUNT</button>
+<p id="lm" class="msg"></p>
+</div>
 
-    <!-- LOGIN -->
-    <section id="loginPage" class="card">
-        <h2>LOGIN</h2>
+<div id="signup" class="card hide">
+<h2>CREATE ACCOUNT</h2>
+<input id="sn" placeholder="Full Name">
+<input id="se" type="email" placeholder="Email">
+<input id="sp" type="password" placeholder="Strong Password">
+<p>8+ characters, uppercase, lowercase, number and symbol.</p>
+<button id="saveBtn" class="blue">CREATE ACCOUNT</button>
+<button id="backBtn" class="gray">BACK TO LOGIN</button>
+<p id="sm" class="msg"></p>
+</div>
 
-        <input
-            id="loginEmail"
-            type="email"
-            placeholder="Email"
-        >
+<div id="dash" class="card hide">
+<h2 id="welcome"></h2>
 
-        <input
-            id="loginPassword"
-            type="password"
-            placeholder="Password"
-        >
+<div class="balance">
+Available Balance
+<h2 id="bal">KSh 0.00</h2>
+</div>
 
-        <button id="loginBtn" class="blue">
-            LOGIN
-        </button>
+<div class="menu">
+<button id="depBtn" class="green">DEPOSIT</button>
+<button id="withBtn" class="red">WITHDRAW</button>
+<button id="tradeBtn" class="blue">TRADE</button>
+<button id="histBtn" class="dark">HISTORY</button>
+</div>
 
-        <button id="goSignupBtn" class="dark">
-            CREATE ACCOUNT
-        </button>
+<button id="profBtn" class="blue">PROFILE</button>
+<button id="logoutBtn" class="gray">LOGOUT</button>
 
-        <p id="loginMessage" class="message"></p>
-    </section>
+<div id="panel"></div>
+</div>
 
+<script>
+const $=id=>document.getElementById(id);
 
-    <!-- SIGN UP -->
-    <section id="signupPage" class="card hidden">
-        <h2>CREATE ACCOUNT</h2>
+let balance=Number(localStorage.getItem("balance")||0);
+let trades=JSON.parse(localStorage.getItem("trades")||"[]");
 
-        <input
-            id="signupName"
-            type="text"
-            placeholder="Full Name"
-        >
+function show(id){
+$("login").classList.add("hide");
+$("signup").classList.add("hide");
+$("dash").classList.add("hide");
+$(id).classList.remove("hide");
+}
 
-        <input
-            id="signupEmail"
-            type="email"
-            placeholder="Email"
-        >
+$("createBtn").onclick=function(){
+show("signup");
+$("sm").innerText="";
+};
 
-        <input
-            id="signupPassword"
-            type="password"
-            placeholder="Strong Password"
-        >
+$("backBtn").onclick=function(){
+show("login");
+};
 
-        <p class="small">
-            Password must contain at least 8 characters,
-            uppercase, lowercase, number and symbol.
-        </p>
+$("saveBtn").onclick=function(){
 
-        <button id="signupBtn" class="blue">
-            CREATE ACCOUNT
-        </button>
+let name=$("sn").value.trim();
+let email=$("se").value.trim();
+let pass=$("sp").value;
 
-        <button id="backLoginBtn" class="gray">
-            BACK TO LOGIN
-        </button>
+if(!/^[A-Za-z ]{2,50}$/.test(name)){
+$("sm").innerText="Enter a valid name.";
+return;
+}
 
-        <p id="signupMessage" class="message"></p>
-    </section>
+if(!/^[^ ]+@[^ ]+\.[^ ]+$/.test(email)){
+$("sm").innerText="Enter a valid email.";
+return;
+}
 
+if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(pass)){
+$("sm").innerText="Password must be 8+ chars with uppercase, lowercase, number and symbol.";
+return;
+}
 
-    <!-- DASHBOARD -->
-    <section id="dashboardPage" class="hidden">
+localStorage.setItem("name",name);
+localStorage.setItem("email",email);
+localStorage.setItem("pass",pass);
 
-        <div class="card">
+$("sm").innerText="Account created successfully!";
 
-            <h2 id="welcomeText">Welcome</h2>
+setTimeout(function(){
+show("login");
+$("lm").innerText="Account created. Login now.";
+},1500);
+};
 
-            <div class="balance">
-                <div>Available Balance</div>
-                <h2 id="balanceText">KSh 0.00</h2>
-            </div>
+$("loginBtn").onclick=function(){
 
-            <div class="menu">
+if(
+$("le").value.trim()===localStorage.getItem("email") &&
+$("lp").value===localStorage.getItem("pass")
+){
 
-                <button id="depositBtn" class="green">
-                    DEPOSIT
-                </button>
+show("dash");
+$("welcome").innerText="Welcome, "+localStorage.getItem("name");
+update();
 
-                <button id="withdrawBtn" class="red">
-                    WITHDRAW
-                </button>
+}else{
 
-                <button id="tradeBtn" class="blue">
-                    TRADE
-                </button>
+$("lm").innerText="Email or password is incorrect.";
 
-                <button id="historyBtn" class="dark">
-                   
+}
+};
+
+function update(){
+$("bal").innerText="KSh "+balance.toFixed(2);
+localStorage.setItem("balance",balance);
+}
+
+$("depBtn").onclick=function(){
+
+$("panel").innerHTML=`
+<h3>DEPOSIT</h3>
+<input id="da" type="number" placeholder="Amount (KSh)">
+<button id="dc" class="green">DEPOSIT</button>
+<p id="dm"></p>
+`;
+
+$("dc").onclick=function(){
+let a=Number($("da").value);
+if(a<=0){$("dm").innerText="Enter a valid amount.";return;}
+balance+=a;
+update();
+$("dm").innerText="Demo deposit added: KSh "+a.toFixed(2);
+};
+};
+
+$("withBtn").onclick=function(){
+
+$("panel").innerHTML=`
+<h3>WITHDRAW</h3>
+<input id="wa" type="number" placeholder="Amount (KSh)">
+<input id="wp" placeholder="M-PESA phone number">
+<button id="wc" class="red">WITHDRAW</button>
+<p id="wm"></p>
+`;
+
+$("wc").onclick=function(){
+let a=Number($("wa").value);
+if(a<=0||!$("wp").value.trim()){
+$("wm").innerText="Enter amount and phone.";
+return;
+}
+if(a>balance){
+$("wm").innerText="Insufficient demo balance.";
+return;
+}
+balance-=a;
+update();
+$("wm").innerText="Demo withdrawal requested.";
+};
+};
+
+$("tradeBtn").onclick=function(){
+
+$("panel").innerHTML=`
+<h3>TRADE</h3>
+<select id="asset">
+<option>Volatility 100</option>
+<option>Volatility 75</option>
+<option>Gold</option>
+<option>EUR/USD</option>
+<option>BTC/USD</option>
+</select>
+<input id="stake" type="number" placeholder="Enter stake">
+<button id="buy" class="green">BUY</button>
+<button id="sell" class="red">SELL</button>
+<p id="tm"></p>
+`;
+
+function trade(type){
+let a=Number($("stake").value);
+if(a<=0){$("tm").innerText="Enter a valid stake.";return;}
+if(a>balance){$("tm").innerText="Insufficient demo balance.";return;}
+
+balance-=a;
+update();
+
+trades.unshift({
+type:type,
+asset:$("asset").value,
+amount:a,
+time:new Date().toLocaleString()
+});
+
+localStorage.setItem("trades",JSON.stringify(trades));
+
+$("tm").innerText=type+" order created successfully.";
+}
+
+$("buy").onclick=()=>trade("BUY");
+$("sell").onclick=()=>trade("SELL");
+};
+
+$("histBtn").onclick=function(){
+
+let html="<h3>HISTORY</h3>";
+
+if(!trades.length){
+html+="<p>No trades yet.</p>";
+}else{
+trades.forEach(t=>{
+html+=`<p><b>${t.type}</b> — ${t.asset}<br>Stake: KSh ${t.amount}<br>${t.time}</p>`;
+});
+}
+
+$("panel").innerHTML=html;
+};
+
+$("profBtn").onclick=function(){
+$("panel").innerHTML=
+"<h3>PROFILE</h3>"+
+"<p><b>Name:</b> "+localStorage.getItem("name")+"</p>"+
+"<p><b>Email:</b> "+localStorage.getItem("email")+"</p>";
+};
+
+$("logoutBtn").onclick=function(){
+show("login");
+$("panel").innerHTML="";
+$("le").value="";
+$("lp").value="";
+};
+
+update();
+</script>
+
+</body>
+</html>
