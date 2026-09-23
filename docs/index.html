@@ -1,18 +1,166 @@
  <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TagOption</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+}
+.container{
+  max-width:450px;
+  margin:40px auto;
+  padding:20px;
+}
+.card{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 3px 12px #ccc;
+}
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  box-sizing:border-box;
+  border:1px solid #ccc;
+  border-radius:8px;
+}
+button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border:0;
+  border-radius:8px;
+  background:#2563eb;
+  color:white;
+  font-weight:bold;
+}
+.back{
+  background:#555;
+}
+.hidden{
+  display:none;
+}
+.message{
+  text-align:center;
+  font-weight:bold;
+}
+</style>
 </head>
+
 <body>
+
+<div class="container">
+
+<div id="login" class="card">
 <h1>TagOption</h1>
 <h2>LOGIN</h2>
-<button>CREATE ACCOUNT</button>
-<button>DEPOSIT</button>
-<button>WITHDRAW</button>
-<button>TRADE</button>
-<button>HISTORY</button>
-<button>PROFILE</button>
+
+<input type="email" id="loginEmail" placeholder="Email">
+<input type="password" id="loginPassword" placeholder="Password">
+
+<button onclick="login()">LOGIN</button>
+<button onclick="showSignup()">CREATE ACCOUNT</button>
+
+<p id="loginMessage" class="message"></p>
+</div>
+
+<div id="signup" class="card hidden">
+<h1>TagOption</h1>
+<h2>CREATE ACCOUNT</h2>
+
+<input type="text" id="name" placeholder="Full Name">
+<input type="email" id="signupEmail" placeholder="Email">
+<input type="password" id="signupPassword" placeholder="Password">
+
+<button onclick="createAccount()">CREATE ACCOUNT</button>
+<button class="back" onclick="showLogin()">BACK TO LOGIN</button>
+
+<p id="signupMessage" class="message"></p>
+</div>
+
+<div id="dashboard" class="card hidden">
+<h1>TagOption</h1>
+<h2 id="welcome"></h2>
+
+<p>Account created successfully.</p>
+
+<button onclick="logout()">LOGOUT</button>
+</div>
+
+</div>
+
+<script>
+
+function showSignup(){
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("signup").classList.remove("hidden");
+}
+
+function showLogin(){
+  document.getElementById("signup").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
+}
+
+function createAccount(){
+
+  const name=document.getElementById("name").value.trim();
+  const email=document.getElementById("signupEmail").value.trim();
+  const password=document.getElementById("signupPassword").value;
+
+  if(!name || !email || !password){
+    document.getElementById("signupMessage").innerText=
+    "Please fill all fields.";
+    return;
+  }
+
+  localStorage.setItem("tagName",name);
+  localStorage.setItem("tagEmail",email);
+  localStorage.setItem("tagPassword",password);
+
+  document.getElementById("signupMessage").innerText=
+  "Account created successfully!";
+
+  setTimeout(showLogin,2000);
+}
+
+function login(){
+
+  const email=document.getElementById("loginEmail").value.trim();
+  const password=document.getElementById("loginPassword").value;
+
+  if(
+    email===localStorage.getItem("tagEmail") &&
+    password===localStorage.getItem("tagPassword")
+  ){
+
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
+
+    document.getElementById("welcome").innerText=
+    "Welcome, "+localStorage.getItem("tagName");
+
+  }else{
+
+    document.getElementById("loginMessage").innerText=
+    "Email or password is incorrect.";
+
+  }
+}
+
+function logout(){
+
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
+
+}
+
+</script>
+
 </body>
 </html>
