@@ -1,174 +1,236 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TagOption</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TagOption</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #111;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #111827;
+}
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+header {
+  background: #111827;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
 
-    .container {
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 20px;
-    }
+.container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+}
 
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
 
-    h1 {
-      margin: 0;
-    }
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
 
-    h2 {
-      margin-top: 0;
-    }
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #111827;
+  color: white;
+  font-size: 16px;
+}
 
-    input {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
+.signup {
+  background: #2563eb;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background: #111827;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.buy {
+  background: #16a34a;
+}
 
-    button:hover {
-      background: #000;
-    }
+.sell {
+  background: #dc2626;
+}
 
-    .balance {
-      background: #eef2ff;
-      padding: 15px;
-      border-radius: 10px;
-      margin: 20px 0;
-      text-align: center;
-    }
+.logout {
+  background: #6b7280;
+}
 
-    .trade-buttons {
-      display: flex;
-      gap: 10px;
-    }
+.balance {
+  background: #eef2ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px 0;
+  text-align: center;
+}
 
-    .trade-buttons button {
-      flex: 1;
-    }
+.trade-buttons {
+  display: flex;
+  gap: 10px;
+}
 
-    .buy {
-      background: #16a34a;
-    }
+.trade-buttons button {
+  flex: 1;
+}
 
-    .sell {
-      background: #dc2626;
-    }
+#signup,
+#dashboard {
+  display: none;
+}
 
-    #dashboard {
-      display: none;
-    }
-  </style>
+.message {
+  text-align: center;
+  margin-top: 15px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>TagOption</h1>
-  <p>Simple Trading Platform</p>
+<h1>TagOption</h1>
+<p>Simple Trading Platform</p>
 </header>
 
 <div class="container">
 
-  <div id="login" class="card">
-    <h2>Login</h2>
+<!-- LOGIN -->
+<div id="login" class="card">
+<h2>Login</h2>
 
-    <input type="email" id="email" placeholder="Email">
+<input type="email" id="loginEmail" placeholder="Email">
 
-    <input type="password" id="password" placeholder="Password">
+<input type="password" id="loginPassword" placeholder="Password">
 
-    <button onclick="login()">Login</button>
+<button onclick="login()">Login</button>
 
-    <p id="message"></p>
-  </div>
+<button class="signup" onclick="showSignup()">Create Account</button>
 
-  <div id="dashboard">
+<p id="loginMessage" class="message"></p>
+</div>
 
-    <div class="card">
 
-      <h2>Welcome to TagOption</h2>
+<!-- CREATE ACCOUNT -->
+<div id="signup" class="card">
+<h2>Create Account</h2>
 
-      <div class="balance">
-        <strong>Balance</strong>
-        <h2 id="balance">KSh 0.00</h2>
-      </div>
+<input type="text" id="name" placeholder="Full Name">
 
-      <input type="number" id="amount" placeholder="Enter amount">
+<input type="email" id="signupEmail" placeholder="Email">
 
-      <div class="trade-buttons">
+<input type="password" id="signupPassword" placeholder="Password">
 
-        <button class="buy" onclick="trade('BUY')">
-          BUY
-        </button>
+<button class="signup" onclick="createAccount()">Create Account</button>
 
-        <button class="sell" onclick="trade('SELL')">
-          SELL
-        </button>
+<button onclick="showLogin()">Back to Login</button>
 
-      </div>
+<p id="signupMessage" class="message"></p>
+</div>
 
-      <button onclick="logout()">Logout</button>
 
-      <p id="tradeMessage"></p>
+<!-- DASHBOARD -->
+<div id="dashboard">
 
-    </div>
+<div class="card">
 
-  </div>
+<h2>Welcome to TagOption</h2>
+
+<div class="balance">
+<strong>Balance</strong>
+<h2 id="balance">KSh 0.00</h2>
+</div>
+
+<input type="number" id="amount" placeholder="Enter amount">
+
+<div class="trade-buttons">
+
+<button class="buy" onclick="trade('BUY')">
+BUY
+</button>
+
+<button class="sell" onclick="trade('SELL')">
+SELL
+</button>
 
 </div>
 
+<button class="logout" onclick="logout()">Logout</button>
+
+<p id="tradeMessage" class="message"></p>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
 
-function login() {
+function showSignup() {
+  document.getElementById("login").style.display = "none";
+  document.getElementById("signup").style.display = "block";
+}
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+function showLogin() {
+  document.getElementById("signup").style.display = "none";
+  document.getElementById("login").style.display = "block";
+}
 
-  if (email === "" || password === "") {
-    document.getElementById("message").innerText =
-      "Please enter email and password.";
+function createAccount() {
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  if (name === "" || email === "" || password === "") {
+    document.getElementById("signupMessage").innerText =
+      "Please fill all fields.";
     return;
   }
 
-  document.getElementById("login").style.display = "none";
-  document.getElementById("dashboard").style.display = "block";
+  localStorage.setItem("tagName", name);
+  localStorage.setItem("tagEmail", email);
+  localStorage.setItem("tagPassword", password);
 
+  document.getElementById("signupMessage").innerText =
+    "Account created successfully!";
+
+  setTimeout(showLogin, 1000);
+}
+
+function login() {
+
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const savedEmail = localStorage.getItem("tagEmail");
+  const savedPassword = localStorage.getItem("tagPassword");
+
+  if (email === savedEmail && password === savedPassword) {
+
+    document.getElementById("login").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+
+  } else {
+
+    document.getElementById("loginMessage").innerText =
+      "Email or password is incorrect.";
+
+  }
 }
 
 function logout() {
