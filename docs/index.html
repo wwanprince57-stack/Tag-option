@@ -1,691 +1,284 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TagOption</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TagOption</title>
 
-<style>
-*{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#07111f;
- color:#fff;
-}
-button,input,select{font:inherit}
-button{cursor:pointer;border:0}
-.container{
- max-width:480px;
- margin:auto;
- min-height:100vh;
- background:#0b1728;
-}
-.header{
- padding:22px 18px;
- background:linear-gradient(135deg,#102b4c,#07111f);
-}
-.logo{font-size:27px;font-weight:800}
-.logo span{color:#20d68b}
-.small{color:#91a4b9;font-size:14px}
-.page{padding:18px}
-.card{
- background:#122238;
- border:1px solid #203750;
- border-radius:18px;
- padding:18px;
- margin-bottom:15px;
-}
-h2{margin-top:0}
-input,select{
- width:100%;
- padding:14px;
- margin:7px 0 12px;
- border-radius:12px;
- border:1px solid #29435f;
- background:#091625;
- color:#fff;
- outline:none;
-}
-input:focus,select:focus{border-color:#20d68b}
-.btn{
- width:100%;
- padding:14px;
- border-radius:12px;
- margin:6px 0;
- font-weight:700;
-}
-.green{background:#20d68b;color:#04150e}
-.blue{background:#2878ff;color:#fff}
-.red{background:#ff4d61;color:#fff}
-.dark{background:#1b3048;color:#fff}
-.link{
- background:none;
- color:#20d68b;
- width:100%;
- padding:10px;
-}
-.hidden{display:none!important}
-.balance{
- font-size:32px;
- font-weight:800;
- margin:8px 0;
-}
-.grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
-}
-.price{
- font-size:27px;
- font-weight:800;
-}
-.badge{
- display:inline-block;
- padding:5px 9px;
- border-radius:8px;
- background:#183b34;
- color:#20d68b;
- font-size:12px;
-}
-.req{font-size:13px;margin:5px 0;color:#ff6575}
-.req.ok{color:#20d68b}
-.passwordBox{position:relative}
-.passwordBox input{padding-right:50px}
-.eye{
- position:absolute;
- right:10px;
- top:15px;
- background:none;
- color:#9db0c4;
-}
-.nav{
- position:sticky;
- bottom:0;
- display:grid;
- grid-template-columns:repeat(4,1fr);
- background:#091523;
- border-top:1px solid #203750;
-}
-.nav button{
- background:none;
- color:#91a4b9;
- padding:13px 4px;
- font-size:12px;
-}
-.nav button.active{color:#20d68b}
-.msg{
- padding:11px;
- border-radius:10px;
- background:#1a2d42;
- margin-bottom:12px;
- font-size:14px;
-}
-.tradeBtns{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
-}
-.tradeBtns button{padding:18px;border-radius:14px;font-weight:800}
-.historyItem{
- padding:12px 0;
- border-bottom:1px solid #203750;
-}
-</style>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      color: #111827;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px;
+      text-align: center;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 430px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .switch {
+      text-align: center;
+      margin-top: 18px;
+      color: #2563eb;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
-<div class="container">
 
-<!-- AUTH -->
-<section id="auth">
- <div class="header">
-  <div class="logo">Tag<span>Option</span></div>
-  <div class="small">Demo Trading Platform</div>
- </div>
+  <header>
+    TagOption
+  </header>
 
- <div class="page">
+  <div class="container">
 
-  <div id="loginBox" class="card">
-   <h2>Login</h2>
-   <div id="loginMsg"></div>
+    <!-- LOGIN -->
+    <div class="card" id="loginBox">
 
-   <input id="loginEmail" type="email" placeholder="Email">
+      <h2>Login</h2>
 
-   <div class="passwordBox">
-    <input id="loginPassword" type="password" placeholder="Password">
-    <button class="eye" type="button" onclick="togglePass('loginPassword',this)">👁️</button>
-   </div>
+      <input
+        type="email"
+        id="loginEmail"
+        placeholder="Email"
+      >
 
-   <button class="btn green" type="button" onclick="login()">LOGIN</button>
-   <button class="link" type="button" onclick="showRegister()">CREATE ACCOUNT</button>
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Password"
+      >
+
+      <button onclick="login()">
+        Login
+      </button>
+
+      <div class="switch" onclick="showSignup()">
+        Don't have an account? Create account
+      </div>
+
+      <div class="message" id="loginMessage"></div>
+
+    </div>
+
+
+    <!-- SIGN UP -->
+    <div class="card hidden" id="signupBox">
+
+      <h2>Create Account</h2>
+
+      <input
+        type="text"
+        id="signupName"
+        placeholder="Full name"
+      >
+
+      <input
+        type="email"
+        id="signupEmail"
+        placeholder="Email"
+      >
+
+      <input
+        type="password"
+        id="signupPassword"
+        placeholder="Password"
+      >
+
+      <button onclick="signup()">
+        Create Account
+      </button>
+
+      <div class="switch" onclick="showLogin()">
+        Already have an account? Login
+      </div>
+
+      <div class="message" id="signupMessage"></div>
+
+    </div>
+
   </div>
 
-  <div id="registerBox" class="card hidden">
-   <h2>Create Account</h2>
-   <div id="registerMsg"></div>
-
-   <input id="regName" type="text" placeholder="Full Name">
-   <input id="regEmail" type="email" placeholder="Email">
-
-   <div class="passwordBox">
-    <input id="regPassword" type="password" placeholder="Password" oninput="checkPassword()">
-    <button class="eye" type="button" onclick="togglePass('regPassword',this)">👁️</button>
-   </div>
-
-   <div id="r1" class="req">❌ 8 characters minimum</div>
-   <div id="r2" class="req">❌ Uppercase letter (A-Z)</div>
-   <div id="r3" class="req">❌ Lowercase letter (a-z)</div>
-   <div id="r4" class="req">❌ Number (0-9)</div>
-   <div id="r5" class="req">❌ Symbol (! @ # $ %)</div>
-
-   <button class="btn green" type="button" onclick="register()">CREATE ACCOUNT</button>
-   <button class="link" type="button" onclick="showLogin()">BACK TO LOGIN</button>
-  </div>
-
- </div>
-</section>
-
-<!-- APP -->
-<section id="app" class="hidden">
-
- <div class="header">
-  <div class="logo">Tag<span>Option</span></div>
-  <div class="small" id="welcome"></div>
- </div>
-
- <!-- HOME -->
- <div id="homePage" class="page">
-  <div class="card">
-   <div class="small">Available Balance</div>
-   <div class="balance" id="balance">KSh 0.00</div>
-   <span class="badge">DEMO ACCOUNT</span>
-  </div>
-
-  <div class="grid">
-   <button class="btn green" onclick="showPage('depositPage')">DEPOSIT</button>
-   <button class="btn red" onclick="showPage('withdrawPage')">WITHDRAW</button>
-  </div>
-
-  <div class="card">
-   <div class="small">Demo Market</div>
-   <h2>Volatility Index</h2>
-   <div class="price" id="marketPrice">100.00</div>
-   <div class="small">Live demo price</div>
-  </div>
-
-  <div class="card">
-   <h3>Quick Trade</h3>
-   <button class="btn blue" onclick="showPage('tradePage')">OPEN TRADE</button>
-  </div>
- </div>
-
- <!-- DEPOSIT -->
- <div id="depositPage" class="page hidden">
-  <div class="card">
-   <h2>Deposit</h2>
-   <div class="msg">Demo only — no real money is moved.</div>
-   <input id="depositAmount" type="number" min="1" placeholder="Amount (KSh)">
-   <button class="btn green" onclick="deposit()">DEPOSIT</button>
-   <button class="btn dark" onclick="showPage('homePage')">BACK</button>
-  </div>
- </div>
-
- <!-- WITHDRAW -->
- <div id="withdrawPage" class="page hidden">
-  <div class="card">
-   <h2>Withdraw</h2>
-   <div class="msg">Demo only — no real money is moved.</div>
-   <div class="small">Balance</div>
-   <h2 id="withdrawBalance">KSh 0.00</h2>
-   <input id="withdrawAmount" type="number" min="1" placeholder="Amount (KSh)">
-   <button class="btn red" onclick="withdraw()">WITHDRAW</button>
-   <button class="btn dark" onclick="showPage('homePage')">BACK</button>
-  </div>
- </div>
-
- <!-- TRADE -->
- <div id="tradePage" class="page hidden">
-  <div class="card">
-   <h2>Trade</h2>
-   <div class="small">Asset</div>
-   <select id="asset">
-    <option>Volatility Index 100</option>
-    <option>Volatility Index 75</option>
-    <option>Volatility Index 50</option>
-   </select>
-
-   <div class="small">Current Price</div>
-   <div class="price" id="tradePrice">100.00</div>
-
-   <div class="small">Duration</div>
-   <select id="duration">
-    <option value="1">1 Minute</option>
-    <option value="2">2 Minutes</option>
-    <option value="5">5 Minutes</option>
-   </select>
-
-   <div class="small">Stake</div>
-   <input id="stake" type="number" min="1" placeholder="Stake KSh">
-
-   <div class="tradeBtns">
-    <button class="green" onclick="placeTrade('CALL')">▲ CALL / BUY</button>
-    <button class="red" onclick="placeTrade('PUT')">▼ PUT / SELL</button>
-   </div>
-  </div>
-
-  <div class="card">
-   <h3>Potential Result</h3>
-   <div id="potential">Enter stake to calculate</div>
-  </div>
- </div>
-
- <!-- HISTORY -->
- <div id="historyPage" class="page hidden">
-  <div class="card">
-   <h2>Trade History</h2>
-   <div id="historyList">No trades yet.</div>
-  </div>
- </div>
-
- <!-- PROFILE -->
- <div id="profilePage" class="page hidden">
-  <div class="card">
-   <h2>Profile</h2>
-   <p><b>Name:</b> <span id="profileName"></span></p>
-   <p><b>Email:</b> <span id="profileEmail"></span></p>
-   <p><b>Account:</b> Demo</p>
-   <button class="btn red" onclick="logout()">LOGOUT</button>
-  </div>
- </div>
-
- <div class="nav">
-  <button onclick="showPage('homePage')" id="navHome">⌂<br>Home</button>
-  <button onclick="showPage('tradePage')" id="navTrade">↕<br>Trade</button>
-  <button onclick="showPage('historyPage')" id="navHistory">☷<br>History</button>
-  <button onclick="showPage('profilePage')" id="navProfile">●<br>Profile</button>
- </div>
-
-</section>
-</div>
-
-<script>
-"use strict";
-
-/* ---------- STORAGE ---------- */
-
-function getUser(){
- try{
-  return JSON.parse(localStorage.getItem("tagoption_user") || "null");
- }catch(e){
-  return null;
- }
-}
-
-function saveUser(user){
- localStorage.setItem("tagoption_user",JSON.stringify(user));
-}
-
-function getBalance(){
- return Number(localStorage.getItem("tagoption_balance") || "0");
-}
-
-function setBalance(value){
- localStorage.setItem("tagoption_balance",String(Number(value)));
- updateBalance();
-}
-
-function getHistory(){
- try{
-  return JSON.parse(localStorage.getItem("tagoption_history") || "[]");
- }catch(e){
-  return [];
- }
-}
-
-function saveHistory(data){
- localStorage.setItem("tagoption_history",JSON.stringify(data));
-}
-
-/* ---------- AUTH ---------- */
-
-function showRegister(){
- document.getElementById("loginBox").classList.add("hidden");
- document.getElementById("registerBox").classList.remove("hidden");
- clearMsg();
-}
-
-function showLogin(){
- document.getElementById("registerBox").classList.add("hidden");
- document.getElementById("loginBox").classList.remove("hidden");
- clearMsg();
-}
-
-function clearMsg(){
- document.getElementById("loginMsg").innerHTML="";
- document.getElementById("registerMsg").innerHTML="";
-}
-
-function message(id,text){
- document.getElementById(id).innerHTML='<div class="msg">'+text+'</div>';
-}
-
-function validPassword(p){
- return p.length>=8 &&
- /[A-Z]/.test(p) &&
- /[a-z]/.test(p) &&
- /[0-9]/.test(p) &&
- /[^A-Za-z0-9]/.test(p);
-}
-
-function checkPassword(){
- const p=document.getElementById("regPassword").value;
-
- const tests=[
-  [p.length>=8,"r1","8 characters minimum"],
-  [/[A-Z]/.test(p),"r2","Uppercase letter (A-Z)"],
-  [/[a-z]/.test(p),"r3","Lowercase letter (a-z)"],
-  [/[0-9]/.test(p),"r4","Number (0-9)"],
-  [/[^A-Za-z0-9]/.test(p),"r5","Symbol (! @ # $ %)"]
- ];
-
- tests.forEach(function(t){
-  const el=document.getElementById(t[1]);
-  el.className=t[0]?"req ok":"req";
-  el.textContent=(t[0]?"✓ ":"❌ ")+t[2];
- });
-}
-
-function register(){
- const name=document.getElementById("regName").value.trim();
- const email=document.getElementById("regEmail").value.trim().toLowerCase();
- const password=document.getElementById("regPassword").value;
-
- if(name.length<2){
-  message("registerMsg","Enter your full name.");
-  return;
- }
-
- if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-  message("registerMsg","Enter a valid email.");
-  return;
- }
-
- if(!validPassword(password)){
-  message("registerMsg","Password does not meet all requirements.");
-  return;
- }
-
- saveUser({
-  name:name,
-  email:email,
-  password:password
- });
-
- localStorage.setItem("tagoption_balance","0");
- localStorage.setItem("tagoption_history","[]");
-
- message("registerMsg","Account created successfully. You can now login.");
-
- setTimeout(function(){
-  document.getElementById("loginEmail").value=email;
-  showLogin();
- },700);
-}
-
-function login(){
- const email=document.getElementById("loginEmail").value.trim().toLowerCase();
- const password=document.getElementById("loginPassword").value;
- const user=getUser();
-
- if(!user){
-  message("loginMsg","No account found. Click CREATE ACCOUNT first.");
-  return;
- }
-
- if(email!==user.email || password!==user.password){
-  message("loginMsg","Incorrect email or password.");
-  return;
- }
-
- localStorage.setItem("tagoption_logged","yes");
- openApp();
-}
-
-function logout(){
- localStorage.removeItem("tagoption_logged");
- document.getElementById("app").classList.add("hidden");
- document.getElementById("auth").classList.remove("hidden");
- showLogin();
-}
-
-/* ---------- APP ---------- */
-
-function openApp(){
- const user=getUser();
-
- if(!user){
-  logout();
-  return;
- }
-
- document.getElementById("auth").classList.add("hidden");
- document.getElementById("app").classList.remove("hidden");
-
- document.getElementById("welcome").textContent="Welcome, "+user.name;
- document.getElementById("profileName").textContent=user.name;
- document.getElementById("profileEmail").textContent=user.email;
-
- updateBalance();
- renderHistory();
- showPage("homePage");
-}
-
-function showPage(id){
- const pages=[
-  "homePage",
-  "depositPage",
-  "withdrawPage",
-  "tradePage",
-  "historyPage",
-  "profilePage"
- ];
-
- pages.forEach(function(p){
-  document.getElementById(p).classList.add("hidden");
- });
-
- document.getElementById(id).classList.remove("hidden");
-
- document.querySelectorAll(".nav button").forEach(function(b){
-  b.classList.remove("active");
- });
-
- if(id==="homePage")document.getElementById("navHome").classList.add("active");
- if(id==="tradePage")document.getElementById("navTrade").classList.add("active");
- if(id==="historyPage")document.getElementById("navHistory").classList.add("active");
- if(id==="profilePage")document.getElementById("navProfile").classList.add("active");
-
- if(id==="withdrawPage"){
-  document.getElementById("withdrawBalance").textContent=
-   "KSh "+getBalance().toFixed(2);
- }
-}
-
-function updateBalance(){
- const b=getBalance();
- document.getElementById("balance").textContent="KSh "+b.toFixed(2);
-
- const wb=document.getElementById("withdrawBalance");
- if(wb)wb.textContent="KSh "+b.toFixed(2);
-}
-
-/* ---------- PASSWORD EYE ---------- */
-
-function togglePass(id,btn){
- const input=document.getElementById(id);
-
- if(input.type==="password"){
-  input.type="text";
-  btn.textContent="🙈";
- }else{
-  input.type="password";
-  btn.textContent="👁️";
- }
-}
-
-/* ---------- DEMO MONEY ---------- */
-
-function deposit(){
- const amount=Number(document.getElementById("depositAmount").value);
-
- if(!Number.isFinite(amount) || amount<=0){
-  alert("Enter a valid amount.");
-  return;
- }
-
- setBalance(getBalance()+amount);
- document.getElementById("depositAmount").value="";
- alert("Demo deposit successful.");
- showPage("homePage");
-}
-
-function withdraw(){
- const amount=Number(document.getElementById("withdrawAmount").value);
-
- if(!Number.isFinite(amount) || amount<=0){
-  alert("Enter a valid amount.");
-  return;
- }
-
- if(amount>getBalance()){
-  alert("Insufficient demo balance.");
-  return;
- }
-
- setBalance(getBalance()-amount);
- document.getElementById("withdrawAmount").value="";
- alert("Demo withdrawal successful.");
- showPage("homePage");
-}
-
-/* ---------- TRADING ---------- */
-
-function placeTrade(direction){
- const stake=Number(document.getElementById("stake").value);
- const duration=document.getElementById("duration").value;
- const asset=document.getElementById("asset").value;
-
- if(!Number.isFinite(stake) || stake<=0){
-  alert("Enter stake.");
-  return;
- }
-
- if(stake>getBalance()){
-  alert("Insufficient demo balance.");
-  return;
- }
-
- const price=Number(document.getElementById("tradePrice").textContent);
-
- setBalance(getBalance()-stake);
-
- const result=Math.random()>=0.5 ? "WIN" : "LOSS";
- const payout=result==="WIN" ? stake*1.8 : 0;
-
- if(result==="WIN"){
-  setBalance(getBalance()+payout);
- }
-
- const trade={
-  asset:asset,
-  direction:direction,
-  stake:stake,
-  duration:duration+" min",
-  price:price,
-  result:result,
-  payout:payout,
-  time:new Date().toLocaleString()
- };
-
- const history=getHistory();
- history.unshift(trade);
- saveHistory(history);
-
- renderHistory();
-
- alert(
-  "Demo trade completed\n"+
-  direction+" • "+result+
-  "\nStake: KSh "+stake.toFixed(2)
- );
-
- document.getElementById("stake").value="";
-}
-
-function renderHistory(){
- const list=document.getElementById("historyList");
- const history=getHistory();
-
- if(history.length===0){
-  list.innerHTML="No trades yet.";
-  return;
- }
-
- list.innerHTML="";
-
- history.forEach(function(t){
-  const div=document.createElement("div");
-  div.className="historyItem";
-
-  div.innerHTML=
-   "<b>"+t.direction+" / "+t.asset+"</b><br>"+
-   "<span class='small'>Stake: KSh "+Number(t.stake).toFixed(2)+
-   " • "+t.duration+"</span><br>"+
-   "<span class='small'>"+t.time+"</span><br>"+
-   "<b>"+t.result+"</b>";
-
-  list.appendChild(div);
- });
-}
-
-/* ---------- DEMO PRICE ---------- */
-
-let price=100;
-
-setInterval(function(){
- price+=(Math.random()-0.5)*0.8;
-
- if(price<1)price=1;
-
- document.getElementById("marketPrice").textContent=price.toFixed(2);
- document.getElementById("tradePrice").textContent=price.toFixed(2);
-
- const stake=Number(document.getElementById("stake").value||0);
-
- if(stake>0){
-  document.getElementById("potential").textContent=
-   "Potential payout: KSh "+(stake*1.8).toFixed(2);
- }else{
-  document.getElementById("potential").textContent=
-   "Enter stake to calculate";
- }
-},1000);
-
-/* ---------- START ---------- */
-
-window.addEventListener("load",function(){
- const logged=localStorage.getItem("tagoption_logged");
- const user=getUser();
-
- if(logged==="yes" && user){
-  openApp();
- }else{
-  document.getElementById("auth").classList.remove("hidden");
-  document.getElementById("app").classList.add("hidden");
- }
-});
-</script>
+
+  <script>
+
+    function showSignup() {
+      document.getElementById("loginBox").classList.add("hidden");
+      document.getElementById("signupBox").classList.remove("hidden");
+    }
+
+
+    function showLogin() {
+      document.getElementById("signupBox").classList.add("hidden");
+      document.getElementById("loginBox").classList.remove("hidden");
+    }
+
+
+    function signup() {
+
+      const name =
+        document.getElementById("signupName").value.trim();
+
+      const email =
+        document.getElementById("signupEmail").value.trim();
+
+      const password =
+        document.getElementById("signupPassword").value;
+
+      const message =
+        document.getElementById("signupMessage");
+
+
+      if (!name || !email || !password) {
+        message.textContent = "Please fill in all fields.";
+        return;
+      }
+
+
+      if (password.length < 6) {
+        message.textContent =
+          "Password must be at least 6 characters.";
+        return;
+      }
+
+
+      const user = {
+        name: name,
+        email: email,
+        password: password
+      };
+
+
+      localStorage.setItem(
+        "tagoptionUser",
+        JSON.stringify(user)
+      );
+
+
+      message.textContent =
+        "Account created successfully!";
+
+
+      setTimeout(() => {
+        showLogin();
+      }, 1000);
+    }
+
+
+    function login() {
+
+      const email =
+        document.getElementById("loginEmail").value.trim();
+
+      const password =
+        document.getElementById("loginPassword").value;
+
+      const message =
+        document.getElementById("loginMessage");
+
+
+      const savedUser =
+        localStorage.getItem("tagoptionUser");
+
+
+      if (!savedUser) {
+        message.textContent =
+          "No account found. Create an account first.";
+        return;
+      }
+
+
+      const user =
+        JSON.parse(savedUser);
+
+
+      if (
+        email === user.email &&
+        password === user.password
+      ) {
+
+        message.textContent =
+          "Login successful!";
+
+        setTimeout(() => {
+          alert(
+            "Welcome to TagOption, " + user.name + "!"
+          );
+        }, 500);
+
+      } else {
+
+        message.textContent =
+          "Incorrect email or password.";
+      }
+    }
+
+  </script>
 
 </body>
 </html>
