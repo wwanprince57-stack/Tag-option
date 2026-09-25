@@ -1,12 +1,807 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tag Option</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TagOption</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#07111f;
+  color:white;
+  min-height:100vh;
+}
+
+header{
+  background:#0b1728;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #203149;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#19e68c;
+}
+
+.menu-btn{
+  background:#13243a;
+  border:0;
+  color:white;
+  padding:10px 13px;
+  border-radius:8px;
+  font-size:20px;
+}
+
+nav{
+  display:none;
+  background:#0b1728;
+  padding:12px;
+  border-bottom:1px solid #203149;
+}
+
+nav button{
+  width:100%;
+  margin:5px 0;
+  padding:12px;
+  border:0;
+  border-radius:7px;
+  background:#142941;
+  color:white;
+  text-align:left;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:#0d1b2d;
+  border:1px solid #1c3048;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:16px;
+}
+
+h1{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+h2{
+  margin-bottom:15px;
+}
+
+p{
+  color:#aebdce;
+  margin-bottom:10px;
+}
+
+input,select{
+  width:100%;
+  padding:14px;
+  margin:7px 0;
+  background:#081421;
+  color:white;
+  border:1px solid #2a405a;
+  border-radius:8px;
+  outline:none;
+}
+
+button.action{
+  width:100%;
+  padding:14px;
+  margin-top:8px;
+  border:0;
+  border-radius:8px;
+  background:#19e68c;
+  color:#03120b;
+  font-weight:bold;
+  font-size:15px;
+}
+
+button.secondary{
+  background:#1b3048;
+  color:white;
+}
+
+button.buy{
+  background:#19e68c;
+  color:#03120b;
+}
+
+button.sell{
+  background:#ff5263;
+  color:white;
+}
+
+.balance{
+  font-size:30px;
+  font-weight:bold;
+  color:#19e68c;
+}
+
+.status{
+  padding:10px;
+  background:#12263b;
+  border-radius:8px;
+  margin-top:10px;
+  color:#c9d7e7;
+}
+
+.password-box{
+  position:relative;
+}
+
+.password-box input{
+  padding-right:50px;
+}
+
+.eye{
+  position:absolute;
+  right:10px;
+  top:16px;
+  background:none;
+  border:0;
+  color:white;
+  font-size:18px;
+}
+
+.requirements{
+  font-size:13px;
+  color:#91a3b8;
+  margin:5px 0 10px;
+}
+
+.requirements span{
+  display:block;
+}
+
+.good{
+  color:#19e68c;
+}
+
+.hidden{
+  display:none;
+}
+
+.trade-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.trade-buttons button{
+  flex:1;
+  padding:15px;
+  border:0;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.history-item{
+  padding:12px;
+  border-bottom:1px solid #23374e;
+}
+
+.history-item:last-child{
+  border-bottom:0;
+}
+
+.small{
+  font-size:12px;
+  color:#8497ad;
+}
+
+.logout{
+  background:#ff5263 !important;
+  color:white !important;
+}
+
+footer{
+  text-align:center;
+  color:#61758b;
+  padding:25px;
+  font-size:12px;
+}
+</style>
 </head>
+
 <body>
-  <h1>TAG OPTION</h1>
-  <p>App is working.</p>
+
+<header>
+  <div class="logo">TAGOPTION</div>
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+</header>
+
+<nav id="menu">
+  <button onclick="showPage('home')">🏠 Home</button>
+  <button onclick="showPage('trade')">📈 Trade</button>
+  <button onclick="showPage('deposit')">💰 Deposit</button>
+  <button onclick="showPage('withdraw')">💸 Withdraw</button>
+  <button onclick="showPage('history')">📋 Trade History</button>
+  <button onclick="showPage('profile')">👤 Profile</button>
+  <button onclick="logout()" class="logout">Logout</button>
+</nav>
+
+<div class="container">
+
+<!-- HOME -->
+<section id="home">
+
+  <div class="card">
+    <h1>Welcome to TagOption</h1>
+    <p>Simple trading platform demo.</p>
+  </div>
+
+  <div class="card">
+    <p>Available Balance</p>
+    <div class="balance" id="balanceHome">KES 0.00</div>
+  </div>
+
+  <div class="card">
+    <h2>Account</h2>
+    <div id="accountStatus">You are not logged in.</div>
+
+    <button class="action" onclick="showPage('login')">
+      LOGIN
+    </button>
+
+    <button class="action secondary" onclick="showPage('register')">
+      CREATE ACCOUNT
+    </button>
+  </div>
+
+</section>
+
+<!-- LOGIN -->
+<section id="login" class="hidden">
+
+  <div class="card">
+    <h2>Login</h2>
+
+    <input id="loginUsername" type="text" placeholder="Username">
+
+    <div class="password-box">
+      <input id="loginPassword" type="password" placeholder="Password">
+      <button class="eye" onclick="togglePassword('loginPassword',this)">👁</button>
+    </div>
+
+    <button class="action" onclick="login()">LOGIN</button>
+
+    <button class="action secondary" onclick="showPage('register')">
+      CREATE ACCOUNT
+    </button>
+
+    <div id="loginMessage" class="status hidden"></div>
+  </div>
+
+</section>
+
+<!-- REGISTER -->
+<section id="register" class="hidden">
+
+  <div class="card">
+    <h2>Create Account</h2>
+
+    <input id="regUsername" type="text" placeholder="Username">
+
+    <div class="password-box">
+      <input id="regPassword" type="password" placeholder="Password">
+      <button class="eye" onclick="togglePassword('regPassword',this)">👁</button>
+    </div>
+
+    <div class="requirements">
+      <span id="rLength">○ At least 6 characters</span>
+      <span id="rNumber">○ Contains a number</span>
+      <span id="rLetter">○ Contains a letter</span>
+    </div>
+
+    <div class="password-box">
+      <input id="regConfirm" type="password" placeholder="Confirm Password">
+      <button class="eye" onclick="togglePassword('regConfirm',this)">👁</button>
+    </div>
+
+    <button class="action" onclick="register()">CREATE ACCOUNT</button>
+
+    <button class="action secondary" onclick="showPage('login')">
+      Already have an account? LOGIN
+    </button>
+
+    <div id="registerMessage" class="status hidden"></div>
+  </div>
+
+</section>
+
+<!-- TRADE -->
+<section id="trade" class="hidden">
+
+  <div class="card">
+    <h2>Trade</h2>
+
+    <p>Balance</p>
+    <div class="balance" id="balanceTrade">KES 0.00</div>
+  </div>
+
+  <div class="card">
+
+    <h2>Trade Setup</h2>
+
+    <select id="asset">
+      <option>Volatility 100</option>
+      <option>Volatility 75</option>
+      <option>Volatility 50</option>
+      <option>EUR/USD</option>
+      <option>GBP/USD</option>
+    </select>
+
+    <select id="duration">
+      <option>1 Minute</option>
+      <option>2 Minutes</option>
+      <option>5 Minutes</option>
+    </select>
+
+    <input id="stake" type="number" min="1" placeholder="Stake (KES)">
+
+    <div class="trade-buttons">
+      <button class="buy" onclick="trade('BUY')">BUY</button>
+      <button class="sell" onclick="trade('SELL')">SELL</button>
+    </div>
+
+    <div id="tradeMessage" class="status hidden"></div>
+
+  </div>
+
+</section>
+
+<!-- DEPOSIT -->
+<section id="deposit" class="hidden">
+
+  <div class="card">
+    <h2>Deposit</h2>
+
+    <p>This is a demo balance. No real money is processed.</p>
+
+    <input id="depositAmount" type="number" min="1" placeholder="Amount">
+
+    <button class="action" onclick="deposit()">
+      ADD DEMO BALANCE
+    </button>
+
+    <div id="depositMessage" class="status hidden"></div>
+  </div>
+
+</section>
+
+<!-- WITHDRAW -->
+<section id="withdraw" class="hidden">
+
+  <div class="card">
+    <h2>Withdraw</h2>
+
+    <p>Demo withdrawal only.</p>
+
+    <input id="withdrawAmount" type="number" min="1" placeholder="Amount">
+
+    <button class="action" onclick="withdraw()">
+      WITHDRAW DEMO BALANCE
+    </button>
+
+    <div id="withdrawMessage" class="status hidden"></div>
+  </div>
+
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="hidden">
+
+  <div class="card">
+    <h2>Trade History</h2>
+    <div id="historyList">
+      No trades yet.
+    </div>
+  </div>
+
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="hidden">
+
+  <div class="card">
+    <h2>Profile</h2>
+
+    <p>Username</p>
+    <strong id="profileUsername">Not logged in</strong>
+
+    <br><br>
+
+    <p>Balance</p>
+    <div class="balance" id="profileBalance">KES 0.00</div>
+
+    <button class="action logout" onclick="logout()">
+      LOGOUT
+    </button>
+  </div>
+
+</section>
+
+</div>
+
+<footer>
+  TagOption Demo • For testing purposes
+</footer>
+
+<script>
+
+let currentUser = localStorage.getItem("tag_currentUser");
+
+function getUsers(){
+  return JSON.parse(localStorage.getItem("tag_users") || "{}");
+}
+
+function saveUsers(users){
+  localStorage.setItem("tag_users",JSON.stringify(users));
+}
+
+function getUserData(){
+  if(!currentUser) return null;
+
+  let users=getUsers();
+
+  if(!users[currentUser]) return null;
+
+  return users[currentUser];
+}
+
+function saveCurrentUserData(data){
+  let users=getUsers();
+
+  if(!currentUser) return;
+
+  users[currentUser]=data;
+
+  saveUsers(users);
+}
+
+function toggleMenu(){
+
+  let menu=document.getElementById("menu");
+
+  menu.style.display =
+    menu.style.display==="block" ? "none" : "block";
+}
+
+function showPage(page){
+
+  document.querySelectorAll(".container section")
+    .forEach(s=>s.classList.add("hidden"));
+
+  document.getElementById(page).classList.remove("hidden");
+
+  document.getElementById("menu").style.display="none";
+
+  updateUI();
+}
+
+function togglePassword(id,button){
+
+  let input=document.getElementById(id);
+
+  if(input.type==="password"){
+    input.type="text";
+    button.textContent="🙈";
+  }else{
+    input.type="password";
+    button.textContent="👁";
+  }
+}
+
+document.getElementById("regPassword").addEventListener("input",function(){
+
+  let p=this.value;
+
+  document.getElementById("rLength").innerHTML =
+    (p.length>=6 ? "✓" : "○")+" At least 6 characters";
+
+  document.getElementById("rNumber").innerHTML =
+    (/[0-9]/.test(p) ? "✓" : "○")+" Contains a number";
+
+  document.getElementById("rLetter").innerHTML =
+    (/[A-Za-z]/.test(p) ? "✓" : "○")+" Contains a letter";
+});
+
+function register(){
+
+  let username=document.getElementById("regUsername").value.trim();
+  let password=document.getElementById("regPassword").value;
+  let confirm=document.getElementById("regConfirm").value;
+
+  let message=document.getElementById("registerMessage");
+
+  message.classList.remove("hidden");
+
+  if(username.length<3){
+    message.textContent="Username must be at least 3 characters.";
+    return;
+  }
+
+  if(password.length<6){
+    message.textContent="Password must be at least 6 characters.";
+    return;
+  }
+
+  if(!/[0-9]/.test(password)){
+    message.textContent="Password must contain a number.";
+    return;
+  }
+
+  if(!/[A-Za-z]/.test(password)){
+    message.textContent="Password must contain a letter.";
+    return;
+  }
+
+  if(password!==confirm){
+    message.textContent="Passwords do not match.";
+    return;
+  }
+
+  let users=getUsers();
+
+  if(users[username]){
+    message.textContent="Username already exists.";
+    return;
+  }
+
+  users[username]={
+    password:password,
+    balance:0,
+    history:[]
+  };
+
+  saveUsers(users);
+
+  currentUser=username;
+
+  localStorage.setItem("tag_currentUser",username);
+
+  message.textContent="Account created successfully.";
+
+  setTimeout(()=>{
+    showPage("home");
+  },700);
+}
+
+function login(){
+
+  let username=document.getElementById("loginUsername").value.trim();
+  let password=document.getElementById("loginPassword").value;
+
+  let message=document.getElementById("loginMessage");
+
+  message.classList.remove("hidden");
+
+  let users=getUsers();
+
+  if(!users[username]){
+    message.textContent="Account not found.";
+    return;
+  }
+
+  if(users[username].password!==password){
+    message.textContent="Wrong password.";
+    return;
+  }
+
+  currentUser=username;
+
+  localStorage.setItem("tag_currentUser",username);
+
+  message.textContent="Login successful.";
+
+  setTimeout(()=>{
+    showPage("home");
+  },700);
+}
+
+function logout(){
+
+  currentUser=null;
+
+  localStorage.removeItem("tag_currentUser");
+
+  showPage("home");
+}
+
+function deposit(){
+
+  if(!currentUser){
+    alert("Please login first.");
+    showPage("login");
+    return;
+  }
+
+  let amount=Number(document.getElementById("depositAmount").value);
+
+  if(amount<=0){
+    alert("Enter a valid amount.");
+    return;
+  }
+
+  let data=getUserData();
+
+  data.balance+=amount;
+
+  saveCurrentUserData(data);
+
+  document.getElementById("depositMessage").classList.remove("hidden");
+
+  document.getElementById("depositMessage").textContent =
+    "Demo balance added successfully.";
+
+  document.getElementById("depositAmount").value="";
+
+  updateUI();
+}
+
+function withdraw(){
+
+  if(!currentUser){
+    alert("Please login first.");
+    showPage("login");
+    return;
+  }
+
+  let amount=Number(document.getElementById("withdrawAmount").value);
+
+  let data=getUserData();
+
+  if(amount<=0){
+    alert("Enter a valid amount.");
+    return;
+  }
+
+  if(amount>data.balance){
+    alert("Insufficient balance.");
+    return;
+  }
+
+  data.balance-=amount;
+
+  saveCurrentUserData(data);
+
+  document.getElementById("withdrawMessage").classList.remove("hidden");
+
+  document.getElementById("withdrawMessage").textContent =
+    "Demo withdrawal completed.";
+
+  document.getElementById("withdrawAmount").value="";
+
+  updateUI();
+}
+
+function trade(type){
+
+  if(!currentUser){
+    alert("Please login first.");
+    showPage("login");
+    return;
+  }
+
+  let asset=document.getElementById("asset").value;
+  let duration=document.getElementById("duration").value;
+  let stake=Number(document.getElementById("stake").value);
+
+  let message=document.getElementById("tradeMessage");
+
+  message.classList.remove("hidden");
+
+  if(stake<=0){
+    message.textContent="Enter a valid stake.";
+    return;
+  }
+
+  let data=getUserData();
+
+  if(stake>data.balance){
+    message.textContent="Insufficient balance.";
+    return;
+  }
+
+  data.balance-=stake;
+
+  let tradeRecord={
+    asset:asset,
+    type:type,
+    duration:duration,
+    stake:stake,
+    time:new Date().toLocaleString()
+  };
+
+  data.history.unshift(tradeRecord);
+
+  saveCurrentUserData(data);
+
+  message.textContent =
+    type+" order placed successfully (DEMO).";
+
+  document.getElementById("stake").value="";
+
+  updateUI();
+}
+
+function updateUI(){
+
+  let data=getUserData();
+
+  let balance=data ? data.balance : 0;
+
+  document.getElementById("balanceHome").textContent =
+    "KES "+balance.toFixed(2);
+
+  document.getElementById("balanceTrade").textContent =
+    "KES "+balance.toFixed(2);
+
+  document.getElementById("profileBalance").textContent =
+    "KES "+balance.toFixed(2);
+
+  document.getElementById("profileUsername").textContent =
+    currentUser || "Not logged in";
+
+  document.getElementById("accountStatus").textContent =
+    currentUser
+    ? "Logged in as "+currentUser
+    : "You are not logged in.";
+
+  renderHistory();
+}
+
+function renderHistory(){
+
+  let box=document.getElementById("historyList");
+
+  let data=getUserData();
+
+  if(!data || !data.history || data.history.length===0){
+
+    box.innerHTML="No trades yet.";
+
+    return;
+  }
+
+  box.innerHTML=data.history.map(t=>`
+
+    <div class="history-item">
+
+      <strong>${t.type} — ${t.asset}</strong>
+
+      <div>Stake: KES ${Number(t.stake).toFixed(2)}</div>
+
+      <div>Duration: ${t.duration}</div>
+
+      <div class="small">${t.time}</div>
+
+    </div>
+
+  `).join("");
+}
+
+updateUI();
+
+</script>
+
 </body>
-</html>
+ </html>
